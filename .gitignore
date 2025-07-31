@@ -1,0 +1,48 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+*.sqlite3
+.env
+*_env/
+*AI_Models/
+pip-wheel-metadata/
+*.pyo
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.pyre/
+
+# ---- Visual Studio ----
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build Results
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.dbmdl
+*.log
+
+# Visual Studio Code (optional)
+.vscode/
+
+# Other
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.swp
+*.zip
