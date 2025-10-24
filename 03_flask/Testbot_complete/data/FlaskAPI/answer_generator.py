@@ -5,8 +5,8 @@ from datetime import datetime
 def retrieve_answer(context: str, question: str, language: str) -> str:
     
     starttime = datetime.now()
-    prompt = f"You are a chef who is keen on sharing his knowledge about cooking perfect pasta with bolognaise sauce. Do not use external or general knowledge or guessing.**User question:** {question}. **Information to answer the question:** {context}. Provide a clear and concise answer based strictly on the provided information."
-    
+    prompt = f"Answer the following question based on the provided information: Question: {question}. Information: {context}. Answer German or English depending on the question."
+
     # model = "smollm2:1.7b"
     # model = "llama3.2:1b"
     # model = "llama3.2:3b-instruct-q8_0"

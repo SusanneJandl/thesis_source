@@ -34,7 +34,7 @@ for filename in os.listdir(folder_path):
             continue  # Skip empty text
 
         # Chunk the text
-        chunks = chunk_text(text, chunk_size=700, overlap=200)
+        chunks = chunk_text(text, chunk_size=800, overlap=200)
         for chunk in chunks:
             all_text_chunks.append((doc_id, filename, chunk))
             doc_id += 1
