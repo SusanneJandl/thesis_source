@@ -1,13 +1,9 @@
 {
-  "webhook": false,
-  "endpoint_name": "chat-2",
-  "description": "",
-  "id": "fd29db28-a125-4405-a77e-796148d56f8b",
   "name": "Chatbot-Chat PC",
   "data": {
     "nodes": [
       {
-        "id": "ChatInput-yCRvv",
+        "id": "ChatInput-lPTsU",
         "type": "genericNode",
         "position": {
           "x": -723.1436786214852,
@@ -292,7 +288,7 @@
             "tool_mode": false,
             "lf_version": "1.1.1"
           },
-          "id": "ChatInput-yCRvv"
+          "id": "ChatInput-lPTsU"
         },
         "selected": false,
         "width": 320,
@@ -304,7 +300,7 @@
         }
       },
       {
-        "id": "ChatOutput-xjjyL",
+        "id": "ChatOutput-csyZd",
         "type": "genericNode",
         "position": {
           "x": 1241.0342737200635,
@@ -492,7 +488,7 @@
             "metadata": {},
             "lf_version": "1.1.1"
           },
-          "id": "ChatOutput-xjjyL"
+          "id": "ChatOutput-csyZd"
         },
         "selected": false,
         "width": 320,
@@ -504,7 +500,7 @@
         "dragging": false
       },
       {
-        "id": "OllamaModel-LxU3W",
+        "id": "OllamaModel-94HBv",
         "type": "genericNode",
         "position": {
           "x": 852.0347029680531,
@@ -1062,7 +1058,7 @@
             "tool_mode": false,
             "lf_version": "1.1.1"
           },
-          "id": "OllamaModel-LxU3W"
+          "id": "OllamaModel-94HBv"
         },
         "selected": false,
         "width": 320,
@@ -1074,7 +1070,7 @@
         "dragging": false
       },
       {
-        "id": "Prompt-VyAeu",
+        "id": "Prompt-5C7C6",
         "type": "genericNode",
         "position": {
           "x": 465.7567212485077,
@@ -1216,7 +1212,7 @@
             "tool_mode": false,
             "lf_version": "1.1.1"
           },
-          "id": "Prompt-VyAeu"
+          "id": "Prompt-5C7C6"
         },
         "selected": false,
         "width": 320,
@@ -1228,7 +1224,7 @@
         }
       },
       {
-        "id": "ParseData-1hS4T",
+        "id": "ParseData-bspJb",
         "type": "genericNode",
         "position": {
           "x": 79.74571241749683,
@@ -1352,7 +1348,7 @@
             "metadata": {},
             "lf_version": "1.1.1"
           },
-          "id": "ParseData-1hS4T"
+          "id": "ParseData-bspJb"
         },
         "selected": false,
         "width": 320,
@@ -1364,7 +1360,7 @@
         "dragging": false
       },
       {
-        "id": "OllamaEmbeddings-9cx3J",
+        "id": "OllamaEmbeddings-t5BGr",
         "type": "genericNode",
         "position": {
           "x": -719.0442692091322,
@@ -1474,7 +1470,7 @@
             "tool_mode": false,
             "lf_version": "1.1.1"
           },
-          "id": "OllamaEmbeddings-9cx3J"
+          "id": "OllamaEmbeddings-t5BGr"
         },
         "selected": false,
         "width": 320,
@@ -1486,7 +1482,7 @@
         "dragging": false
       },
       {
-        "id": "FAISS-Eb0Bd",
+        "id": "FAISS-wr7jJ",
         "type": "genericNode",
         "position": {
           "x": -310.7605606032296,
@@ -1700,7 +1696,7 @@
             "lf_version": "1.1.1"
           },
           "type": "FAISS",
-          "id": "FAISS-Eb0Bd"
+          "id": "FAISS-wr7jJ"
         },
         "selected": false,
         "width": 320,
@@ -1714,14 +1710,14 @@
     ],
     "edges": [
       {
-        "source": "ChatInput-yCRvv",
-        "sourceHandle": "{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yCRvvœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "Prompt-VyAeu",
-        "targetHandle": "{œfieldNameœ:œquestionœ,œidœ:œPrompt-VyAeuœ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
+        "source": "ChatInput-lPTsU",
+        "sourceHandle": "{œdataTypeœ:œChatInputœ,œidœ:œChatInput-lPTsUœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "Prompt-5C7C6",
+        "targetHandle": "{œfieldNameœ:œquestionœ,œidœ:œPrompt-5C7C6œ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
         "data": {
           "targetHandle": {
             "fieldName": "question",
-            "id": "Prompt-VyAeu",
+            "id": "Prompt-5C7C6",
             "inputTypes": [
               "Message",
               "Text"
@@ -1730,27 +1726,27 @@
           },
           "sourceHandle": {
             "dataType": "ChatInput",
-            "id": "ChatInput-yCRvv",
+            "id": "ChatInput-lPTsU",
             "name": "message",
             "output_types": [
               "Message"
             ]
           }
         },
-        "id": "reactflow__edge-ChatInput-yCRvv{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yCRvvœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-Prompt-VyAeu{œfieldNameœ:œquestionœ,œidœ:œPrompt-VyAeuœ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-ChatInput-lPTsU{œdataTypeœ:œChatInputœ,œidœ:œChatInput-lPTsUœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-Prompt-5C7C6{œfieldNameœ:œquestionœ,œidœ:œPrompt-5C7C6œ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
         "animated": false,
         "className": "",
         "selected": false
       },
       {
-        "source": "ParseData-1hS4T",
-        "sourceHandle": "{œdataTypeœ:œParseDataœ,œidœ:œParseData-1hS4Tœ,œnameœ:œtextœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "Prompt-VyAeu",
-        "targetHandle": "{œfieldNameœ:œcontextœ,œidœ:œPrompt-VyAeuœ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
+        "source": "ParseData-bspJb",
+        "sourceHandle": "{œdataTypeœ:œParseDataœ,œidœ:œParseData-bspJbœ,œnameœ:œtextœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "Prompt-5C7C6",
+        "targetHandle": "{œfieldNameœ:œcontextœ,œidœ:œPrompt-5C7C6œ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
         "data": {
           "targetHandle": {
             "fieldName": "context",
-            "id": "Prompt-VyAeu",
+            "id": "Prompt-5C7C6",
             "inputTypes": [
               "Message",
               "Text"
@@ -1759,27 +1755,27 @@
           },
           "sourceHandle": {
             "dataType": "ParseData",
-            "id": "ParseData-1hS4T",
+            "id": "ParseData-bspJb",
             "name": "text",
             "output_types": [
               "Message"
             ]
           }
         },
-        "id": "reactflow__edge-ParseData-1hS4T{œdataTypeœ:œParseDataœ,œidœ:œParseData-1hS4Tœ,œnameœ:œtextœ,œoutput_typesœ:[œMessageœ]}-Prompt-VyAeu{œfieldNameœ:œcontextœ,œidœ:œPrompt-VyAeuœ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-ParseData-bspJb{œdataTypeœ:œParseDataœ,œidœ:œParseData-bspJbœ,œnameœ:œtextœ,œoutput_typesœ:[œMessageœ]}-Prompt-5C7C6{œfieldNameœ:œcontextœ,œidœ:œPrompt-5C7C6œ,œinputTypesœ:[œMessageœ,œTextœ],œtypeœ:œstrœ}",
         "animated": false,
         "className": "",
         "selected": false
       },
       {
-        "source": "Prompt-VyAeu",
-        "sourceHandle": "{œdataTypeœ:œPromptœ,œidœ:œPrompt-VyAeuœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "OllamaModel-LxU3W",
-        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œOllamaModel-LxU3Wœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "source": "Prompt-5C7C6",
+        "sourceHandle": "{œdataTypeœ:œPromptœ,œidœ:œPrompt-5C7C6œ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "OllamaModel-94HBv",
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œOllamaModel-94HBvœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "data": {
           "targetHandle": {
             "fieldName": "input_value",
-            "id": "OllamaModel-LxU3W",
+            "id": "OllamaModel-94HBv",
             "inputTypes": [
               "Message"
             ],
@@ -1787,27 +1783,27 @@
           },
           "sourceHandle": {
             "dataType": "Prompt",
-            "id": "Prompt-VyAeu",
+            "id": "Prompt-5C7C6",
             "name": "prompt",
             "output_types": [
               "Message"
             ]
           }
         },
-        "id": "reactflow__edge-Prompt-VyAeu{œdataTypeœ:œPromptœ,œidœ:œPrompt-VyAeuœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-OllamaModel-LxU3W{œfieldNameœ:œinput_valueœ,œidœ:œOllamaModel-LxU3Wœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-Prompt-5C7C6{œdataTypeœ:œPromptœ,œidœ:œPrompt-5C7C6œ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-OllamaModel-94HBv{œfieldNameœ:œinput_valueœ,œidœ:œOllamaModel-94HBvœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "className": "",
         "animated": false,
         "selected": false
       },
       {
-        "source": "OllamaModel-LxU3W",
-        "sourceHandle": "{œdataTypeœ:œOllamaModelœ,œidœ:œOllamaModel-LxU3Wœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "ChatOutput-xjjyL",
-        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-xjjyLœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "source": "OllamaModel-94HBv",
+        "sourceHandle": "{œdataTypeœ:œOllamaModelœ,œidœ:œOllamaModel-94HBvœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "ChatOutput-csyZd",
+        "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-csyZdœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "data": {
           "targetHandle": {
             "fieldName": "input_value",
-            "id": "ChatOutput-xjjyL",
+            "id": "ChatOutput-csyZd",
             "inputTypes": [
               "Message"
             ],
@@ -1815,27 +1811,27 @@
           },
           "sourceHandle": {
             "dataType": "OllamaModel",
-            "id": "OllamaModel-LxU3W",
+            "id": "OllamaModel-94HBv",
             "name": "text_output",
             "output_types": [
               "Message"
             ]
           }
         },
-        "id": "reactflow__edge-OllamaModel-LxU3W{œdataTypeœ:œOllamaModelœ,œidœ:œOllamaModel-LxU3Wœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-xjjyL{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-xjjyLœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-OllamaModel-94HBv{œdataTypeœ:œOllamaModelœ,œidœ:œOllamaModel-94HBvœ,œnameœ:œtext_outputœ,œoutput_typesœ:[œMessageœ]}-ChatOutput-csyZd{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-csyZdœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "className": "",
         "animated": false,
         "selected": false
       },
       {
-        "source": "ChatInput-yCRvv",
-        "sourceHandle": "{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yCRvvœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "FAISS-Eb0Bd",
-        "targetHandle": "{œfieldNameœ:œsearch_queryœ,œidœ:œFAISS-Eb0Bdœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "source": "ChatInput-lPTsU",
+        "sourceHandle": "{œdataTypeœ:œChatInputœ,œidœ:œChatInput-lPTsUœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "FAISS-wr7jJ",
+        "targetHandle": "{œfieldNameœ:œsearch_queryœ,œidœ:œFAISS-wr7jJœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "data": {
           "targetHandle": {
             "fieldName": "search_query",
-            "id": "FAISS-Eb0Bd",
+            "id": "FAISS-wr7jJ",
             "inputTypes": [
               "Message"
             ],
@@ -1843,27 +1839,27 @@
           },
           "sourceHandle": {
             "dataType": "ChatInput",
-            "id": "ChatInput-yCRvv",
+            "id": "ChatInput-lPTsU",
             "name": "message",
             "output_types": [
               "Message"
             ]
           }
         },
-        "id": "reactflow__edge-ChatInput-yCRvv{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yCRvvœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-FAISS-Eb0Bd{œfieldNameœ:œsearch_queryœ,œidœ:œFAISS-Eb0Bdœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "id": "reactflow__edge-ChatInput-lPTsU{œdataTypeœ:œChatInputœ,œidœ:œChatInput-lPTsUœ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-FAISS-wr7jJ{œfieldNameœ:œsearch_queryœ,œidœ:œFAISS-wr7jJœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
         "animated": false,
         "className": "",
         "selected": false
       },
       {
-        "source": "OllamaEmbeddings-9cx3J",
-        "sourceHandle": "{œdataTypeœ:œOllamaEmbeddingsœ,œidœ:œOllamaEmbeddings-9cx3Jœ,œnameœ:œembeddingsœ,œoutput_typesœ:[œEmbeddingsœ]}",
-        "target": "FAISS-Eb0Bd",
-        "targetHandle": "{œfieldNameœ:œembeddingœ,œidœ:œFAISS-Eb0Bdœ,œinputTypesœ:[œEmbeddingsœ],œtypeœ:œotherœ}",
+        "source": "OllamaEmbeddings-t5BGr",
+        "sourceHandle": "{œdataTypeœ:œOllamaEmbeddingsœ,œidœ:œOllamaEmbeddings-t5BGrœ,œnameœ:œembeddingsœ,œoutput_typesœ:[œEmbeddingsœ]}",
+        "target": "FAISS-wr7jJ",
+        "targetHandle": "{œfieldNameœ:œembeddingœ,œidœ:œFAISS-wr7jJœ,œinputTypesœ:[œEmbeddingsœ],œtypeœ:œotherœ}",
         "data": {
           "targetHandle": {
             "fieldName": "embedding",
-            "id": "FAISS-Eb0Bd",
+            "id": "FAISS-wr7jJ",
             "inputTypes": [
               "Embeddings"
             ],
@@ -1871,27 +1867,27 @@
           },
           "sourceHandle": {
             "dataType": "OllamaEmbeddings",
-            "id": "OllamaEmbeddings-9cx3J",
+            "id": "OllamaEmbeddings-t5BGr",
             "name": "embeddings",
             "output_types": [
               "Embeddings"
             ]
           }
         },
-        "id": "reactflow__edge-OllamaEmbeddings-9cx3J{œdataTypeœ:œOllamaEmbeddingsœ,œidœ:œOllamaEmbeddings-9cx3Jœ,œnameœ:œembeddingsœ,œoutput_typesœ:[œEmbeddingsœ]}-FAISS-Eb0Bd{œfieldNameœ:œembeddingœ,œidœ:œFAISS-Eb0Bdœ,œinputTypesœ:[œEmbeddingsœ],œtypeœ:œotherœ}",
+        "id": "reactflow__edge-OllamaEmbeddings-t5BGr{œdataTypeœ:œOllamaEmbeddingsœ,œidœ:œOllamaEmbeddings-t5BGrœ,œnameœ:œembeddingsœ,œoutput_typesœ:[œEmbeddingsœ]}-FAISS-wr7jJ{œfieldNameœ:œembeddingœ,œidœ:œFAISS-wr7jJœ,œinputTypesœ:[œEmbeddingsœ],œtypeœ:œotherœ}",
         "animated": false,
         "className": "",
         "selected": false
       },
       {
-        "source": "FAISS-Eb0Bd",
-        "sourceHandle": "{œdataTypeœ:œFAISSœ,œidœ:œFAISS-Eb0Bdœ,œnameœ:œsearch_resultsœ,œoutput_typesœ:[œDataœ]}",
-        "target": "ParseData-1hS4T",
-        "targetHandle": "{œfieldNameœ:œdataœ,œidœ:œParseData-1hS4Tœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "source": "FAISS-wr7jJ",
+        "sourceHandle": "{œdataTypeœ:œFAISSœ,œidœ:œFAISS-wr7jJœ,œnameœ:œsearch_resultsœ,œoutput_typesœ:[œDataœ]}",
+        "target": "ParseData-bspJb",
+        "targetHandle": "{œfieldNameœ:œdataœ,œidœ:œParseData-bspJbœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
         "data": {
           "targetHandle": {
             "fieldName": "data",
-            "id": "ParseData-1hS4T",
+            "id": "ParseData-bspJb",
             "inputTypes": [
               "Data"
             ],
@@ -1899,14 +1895,14 @@
           },
           "sourceHandle": {
             "dataType": "FAISS",
-            "id": "FAISS-Eb0Bd",
+            "id": "FAISS-wr7jJ",
             "name": "search_results",
             "output_types": [
               "Data"
             ]
           }
         },
-        "id": "reactflow__edge-FAISS-Eb0Bd{œdataTypeœ:œFAISSœ,œidœ:œFAISS-Eb0Bdœ,œnameœ:œsearch_resultsœ,œoutput_typesœ:[œDataœ]}-ParseData-1hS4T{œfieldNameœ:œdataœ,œidœ:œParseData-1hS4Tœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
+        "id": "reactflow__edge-FAISS-wr7jJ{œdataTypeœ:œFAISSœ,œidœ:œFAISS-wr7jJœ,œnameœ:œsearch_resultsœ,œoutput_typesœ:[œDataœ]}-ParseData-bspJb{œfieldNameœ:œdataœ,œidœ:œParseData-bspJbœ,œinputTypesœ:[œDataœ],œtypeœ:œotherœ}",
         "animated": false,
         "className": "",
         "selected": false
@@ -1919,11 +1915,15 @@
     }
   },
   "icon_bg_color": null,
-  "user_id": "bfaf9a34-fb9b-4c3f-81d5-20ae5573d300",
+  "user_id": "c2e5cd25-4863-4f07-b6c3-320f504346c8",
   "gradient": null,
   "icon": null,
   "is_component": false,
   "tags": null,
-  "updated_at": "2025-10-24T16:41:20+00:00",
-  "folder_id": "98c65cd2-1590-4c5b-b4ce-946663d559b2"
+  "updated_at": "2025-10-27T12:45:05+00:00",
+  "folder_id": "c84b7245-ec78-444c-b7c0-b66012f426ad",
+  "webhook": false,
+  "endpoint_name": "chat-2",
+  "description": "",
+  "id": "ef794493-f0c9-47e1-a2ab-4e17663b55b4"
 }
