@@ -6,7 +6,7 @@ namespace ChatbotWPF
 {
     internal class FlaskAPIService
     {
-        public async Task<string> RetrieveAnswerAsync(string query)
+        public async Task<string> RetrieveAnswerAsync(string query, List<string> history)
         {
             string answer = "";
 
@@ -24,7 +24,8 @@ namespace ChatbotWPF
                     {
                         question = query,
                         topic = "Fantasy",// Environment.GetEnvironmentVariable("TOPIC")
-                        language = Consts.language
+                        language = Consts.language,
+                        history = history
                     });
                     request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 

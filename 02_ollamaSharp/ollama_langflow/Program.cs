@@ -65,7 +65,7 @@ while (true)
     string prompt = "";
     if (historyEnabled)
     {
-        prompt = $"Answer the question in the according language: '{message}'.\n Take into account the following conversation: '{memory}' and use the following information for your answer: '{context}'";
+        prompt = $"Answer the question in the according language: '{message}'.\n Take into account the previous conversation: '{memory}' and use the following information for your answer: '{context}'";
     }
     else
     {

@@ -2,10 +2,14 @@ from ollama import generate
 from translation import translate_to_de
 from datetime import datetime
 
-def retrieve_answer(context: str, question: str, language: str) -> str:
-    
+def retrieve_answer(context: str, question: str, language: str, history: list) -> str:
+    print(f"\n\nHISTORY: {history}\n\n")
+    prompt = ""
     starttime = datetime.now()
-    prompt = f"Answer the following question based on the provided information: Question: {question}. Information: {context}. Answer German or English depending on the question."
+    if history == None or history == []:
+        prompt = f"Answer the question in the according language: '{question}'.\n Use the following information for your answer: '{context}'"
+    else:
+        prompt = f"Answer the question in the according language: '{question}'.\n Take into account the previous conversation: '{history}' and use the following information for your answer: '{context}'"
 
     # model = "smollm2:1.7b"
     # model = "llama3.2:1b"

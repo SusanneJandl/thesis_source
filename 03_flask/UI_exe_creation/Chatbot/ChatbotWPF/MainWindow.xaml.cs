@@ -6,7 +6,7 @@ namespace ChatbotWPF
 {
     public partial class MainWindow : Window
     {
-         public ObservableCollection<string> ChatHistory { get; set; }
+        public ObservableCollection<string> ChatHistory { get; set; }
         TranslationManager translation = new(typeof(MainWindow));
 
         public MainWindow()

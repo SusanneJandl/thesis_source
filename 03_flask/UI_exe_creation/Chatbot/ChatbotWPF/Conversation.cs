@@ -11,15 +11,25 @@ namespace ChatbotWPF
             if (string.IsNullOrWhiteSpace(input))
                 return;
 
-            // Display user prompt in UI
             mainWindow.ChatHistory.Add($"\nYou: {input}\n");
             var history = new List<string>();
-            foreach (string item in mainWindow.ChatHistory)
+
+            if (Consts.HISTORY)
             {
-                history.Add(item);
+                int excludeLatest = mainWindow.ChatHistory.Count - 1;
+
+                int start = Math.Max(0, excludeLatest - 4);
+
+                for (int i = start; i < excludeLatest; i++)
+                {
+                    history.Add(mainWindow.ChatHistory[i]);
+                }
             }
+
             FlaskAPIService answer = new();
-            string response = await answer.RetrieveAnswerAsync(input);
+            string query = input;
+            
+            string response = await answer.RetrieveAnswerAsync(query, history);
 
             mainWindow.ChatHistory.Add("Bot: ");
             int botIndex = mainWindow.ChatHistory.Count - 1;

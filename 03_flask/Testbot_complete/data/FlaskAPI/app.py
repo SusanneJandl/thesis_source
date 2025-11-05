@@ -98,13 +98,14 @@ def get_context():
 @app.route('/answer', methods=['POST'])
 def get_answer():
     """
-    Endpoint to retrieve the context
+    Endpoint to retrieve the answer
     """
     try:
         data = request.json
         question = data.get('question')
         topic = data.get('topic')
         language = data.get('language')
+        history = data.get('history')
 
         if not question:
             return jsonify({"status": "error", "message": "Question is required"}), 400
@@ -125,7 +126,7 @@ def get_answer():
         print(f"\n{question}\n\n")
     
         context = retrieve_context(question, topic, language)
-        answer = retrieve_answer(context, question, language)
+        answer = retrieve_answer(context, question, language, history)
         print("=========================================================================")
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:
