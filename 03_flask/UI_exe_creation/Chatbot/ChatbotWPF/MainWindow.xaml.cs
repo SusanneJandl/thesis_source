@@ -22,8 +22,9 @@ namespace ChatbotWPF
             DataContext = this;
             translation.SetCulture(new CultureInfo("de"));
             UpdateStrings();
+            Log.History();
+            Log.Language();
         }
-
         private void UserInput_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             placeholder_textblock.Visibility = string.IsNullOrWhiteSpace(UserInput.Text) ? Visibility.Visible : Visibility.Hidden;
@@ -32,6 +33,7 @@ namespace ChatbotWPF
 
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.startTotal = DateTime.Now;
             await SendMessage();
         }
 
@@ -40,18 +42,20 @@ namespace ChatbotWPF
         {
             Conversation conversation = new();
             await conversation.WithWholeAnswerAsync();
+            Log.doneTotal = DateTime.Now;
+            Log.TimeLog(Log.startTotal, Log.doneTotal, "Total");
         }
 
         private void OnSwitch(object sender, RoutedEventArgs e)
         {
             if (rb_english.IsChecked == true)
             {
-                Consts.language = "EN";
+                Consts.LANGUAGE = "EN";
                 translation.SetCulture(new CultureInfo("en"));
             }
             else if (rb_german.IsChecked == true)
             { 
-                Consts.language = "DE";
+                Consts.LANGUAGE = "DE";
                 translation.SetCulture(new CultureInfo("de"));
             }
             UpdateStrings();

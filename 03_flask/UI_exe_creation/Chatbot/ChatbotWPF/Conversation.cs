@@ -30,7 +30,7 @@ namespace ChatbotWPF
             string query = input;
             
             string response = await answer.RetrieveAnswerAsync(query, history);
-
+            
             mainWindow.ChatHistory.Add("Bot: ");
             int botIndex = mainWindow.ChatHistory.Count - 1;
 

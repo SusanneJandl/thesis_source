@@ -24,7 +24,7 @@ namespace ChatbotWPF
                     {
                         question = query,
                         topic = "Fantasy",// Environment.GetEnvironmentVariable("TOPIC")
-                        language = Consts.language,
+                        language = Consts.LANGUAGE,
                         history = history
                     });
                     request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
