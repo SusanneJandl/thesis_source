@@ -58,9 +58,8 @@ def retrieve_context(question: str, topic: str, language: str) -> list:
     for idx, dist in zip(indices, distances):
         doc_info = metadata[str(idx)]
         contexts.append(doc_info['text'])
-    time = (datetime.now()-starttime).total_seconds()
-    print(f"\n{contexts}\n\nRetrieving context took {time} seconds\n\n")    
-    return contexts
+    context_time = (datetime.now()-starttime).total_seconds()
+    return contexts, context_time
 
 def retrieve_context_qa(question: str, topic: str, language: str) -> list:
     """
@@ -69,14 +68,6 @@ def retrieve_context_qa(question: str, topic: str, language: str) -> list:
     """
     similarity_threshold = 5 # lower for higher similarity
     
-    if language=="DE":
-        starttime = datetime.now()
-        question_de = question
-        question = translate_to_en(question_de)
-        time = (datetime.now() - starttime).total_seconds()
-        print(f"\n\n{question}\nTranslation to English took {time} seconds\n\n")         
-
-    starttime = datetime.now()
     # Load the cKDTree
     with open(f"../VectorStores/{topic}/{topic}_tree.pkl", "rb") as f:
         qa_tree = pickle.load(f)

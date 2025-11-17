@@ -43,7 +43,7 @@ namespace ChatbotWPF
             Conversation conversation = new();
             await conversation.WithWholeAnswerAsync();
             Log.doneTotal = DateTime.Now;
-            Log.TimeLog(Log.startTotal, Log.doneTotal, "Total");
+            Log.TimeLog(Log.startTotal, Log.doneTotal, "TOTAL TIME");
         }
 
         private void OnSwitch(object sender, RoutedEventArgs e)

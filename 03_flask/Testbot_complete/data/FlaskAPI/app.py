@@ -10,6 +10,8 @@ from answer_generator import retrieve_answer
 from datetime import datetime
 
 app = Flask(__name__)
+file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" #laptop
+#file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.txt" #PC
 
 @app.route('/')
 def home():
@@ -100,6 +102,7 @@ def get_answer():
     """
     Endpoint to retrieve the answer
     """
+    de_en_time = 0
     try:
         data = request.json
         question = data.get('question')
@@ -120,14 +123,37 @@ def get_answer():
             starttime = datetime.now()
             question_de = question
             question = translate_to_en(question_de)
-            time = (datetime.now() - starttime).total_seconds()
-            print(f"\n{question_de}\n\nTranslation to English took {time} seconds")    
+            de_en_time = (datetime.now() - starttime).total_seconds()
+            
+        context, context_time = retrieve_context(question, topic, language)
+        answer, answer_de, answer_en, answer_time, en_de_time, model = retrieve_answer(context, question, language, history)
+        with open(file, "a", encoding="utf-8") as f:
+            if language=="DE":
+                f.write(f"\nGERMAN QUESTION:\n    {question_de}\n")
+            f.write(f"\nENGLISH QUESTION:\n    {question}\n"
+                    f"\nCONTEXT:\n    {context}\n"
+                    f"\nHISTORY: \n    {history}\n"
+                    f"\nENGLISH ANSWER:\n    {answer_en}\n")
+            if language=="DE":
+                f.write(f"\nGERMAN ANSWER:\n    {answer_de}\n")
 
-        print(f"\n{question}\n\n")
-    
-        context = retrieve_context(question, topic, language)
-        answer = retrieve_answer(context, question, language, history)
-        print("=========================================================================")
+            if language=="DE":
+                f.write(f"TO EN | ")
+            f.write(f"CONTEXT | ANSWER EN")
+            if language=="DE":
+                f.write(f" | TO DE")
+            f.write("\n-|-")
+            if language=="DE":
+                f.write(f"|-|-")
+            f.write("\n")
+            if language=="DE":
+                f.write(f"{de_en_time:.2f} s | ")
+            f.write(f"{context_time:.2f} s | {answer_time:.2f} s ({model})")
+            if language=="DE":
+                f.write(f" | {en_de_time:.2f} s")
+            f.close()
+            
+
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
