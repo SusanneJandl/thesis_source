@@ -45,9 +45,6 @@ namespace ChatbotWPF
         public static void RamUsage(string purpose, int MIN, int MAX, int AVG)
         {
             File.AppendAllText(logFilePath, Environment.NewLine + purpose + ": MIN=" + MIN + " MB | MAX=" + MAX + " MB | AVG=" + AVG + "MB");
-        }
-        public static void EndLog()
-        {
             File.AppendAllText(logFilePath, "---" + Environment.NewLine);
         }
     }

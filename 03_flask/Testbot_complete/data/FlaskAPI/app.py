@@ -200,20 +200,12 @@ def get_answer():
             if language=="DE":
                 f.write(f"\nGERMAN ANSWER:\n    {answer_de}\n\n")
 
+            f.write(f"TIMINGS (in seconds):\n")
             if language=="DE":
-                f.write(f"TO EN | ")
-            f.write(f"CONTEXT | ANSWER EN")
+                f.write(f"TO EN = {de_en_time:.2f} s | ")
+            f.write(f"CONTEXT = {context_time:.2f} s | ANSWER EN = {answer_time:.2f} s ({model})")
             if language=="DE":
-                f.write(f" | TO DE")
-            f.write("\n-|-")
-            if language=="DE":
-                f.write(f"|-|-")
-            f.write("\n")
-            if language=="DE":
-                f.write(f"{de_en_time:.2f} s | ")
-            f.write(f"{context_time:.2f} s | {answer_time:.2f} s ({model})")
-            if language=="DE":
-                f.write(f" | {en_de_time:.2f} s")
+                f.write(f" | TO DE = {en_de_time:.2f} s")
 
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:
