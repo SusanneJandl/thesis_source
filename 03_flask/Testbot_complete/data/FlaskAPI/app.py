@@ -8,10 +8,69 @@ from translation import translate_to_de
 from translation import translate_to_en
 from answer_generator import retrieve_answer
 from datetime import datetime
+import threading
+import time
+import statistics
+import os
+import psutil
 
-app = Flask(__name__)
 file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" #laptop
 #file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.txt" #PC
+
+class RamTracker:
+    def __init__(self):
+        self.log_file = file        
+        self.samples_mb: list[float] = []
+        self._stop_event = threading.Event()
+        self._thread: threading.Thread | None = None
+
+    def start(self):
+        if self._thread is not None and self._thread.is_alive():
+            return  # already running
+
+        self._stop_event.clear()
+        self._thread = threading.Thread(target=self._run_sampler, daemon=True)
+        self._thread.start()
+
+    def _run_sampler(self):
+        proc = psutil.Process(os.getpid())
+        while not self._stop_event.is_set():
+            try:
+                rss_mb = proc.memory_info().rss / (1024 * 1024)  # bytes -> MB
+                self.samples_mb.append(rss_mb)
+            except Exception:
+                # never let logging crash the app
+                pass
+            # sample every second
+            time.sleep(1.0)
+
+    def stop_and_log(self):
+        # stop thread
+        self._stop_event.set()
+        if self._thread is not None:
+            self._thread.join(timeout=2.0)
+            self._thread = None
+
+        if not self.samples_mb:
+            return  # nothing to log
+
+        min_mb = min(self.samples_mb)
+        max_mb = max(self.samples_mb)
+        avg_mb = statistics.fmean(self.samples_mb)
+
+        line = (
+            f"\n\nPYTHON RAM USAGE : "
+            f"MIN={min_mb:.2f} MB | MAX={max_mb:.2f} MB | AVG={avg_mb:.2f} MB"
+        )
+
+        try:
+            with open(self.log_file, "a", encoding="utf-8") as f:
+                f.write(line) 
+        except Exception:
+            # don’t kill the request if logging fails
+            pass
+
+app = Flask(__name__)
 
 @app.route('/')
 def home():
@@ -103,6 +162,10 @@ def get_answer():
     Endpoint to retrieve the answer
     """
     de_en_time = 0
+
+    ram_tracker = RamTracker()
+    ram_tracker.start()
+
     try:
         data = request.json
         question = data.get('question')
@@ -135,7 +198,7 @@ def get_answer():
                     f"\nHISTORY: \n    {history}\n"
                     f"\nENGLISH ANSWER:\n    {answer_en}\n")
             if language=="DE":
-                f.write(f"\nGERMAN ANSWER:\n    {answer_de}\n")
+                f.write(f"\nGERMAN ANSWER:\n    {answer_de}\n\n")
 
             if language=="DE":
                 f.write(f"TO EN | ")
@@ -151,12 +214,13 @@ def get_answer():
             f.write(f"{context_time:.2f} s | {answer_time:.2f} s ({model})")
             if language=="DE":
                 f.write(f" | {en_de_time:.2f} s")
-            f.close()
-            
 
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        # --- RAM tracking: stop and log once per request ---
+        ram_tracker.stop_and_log()
     
 @app.route('/answer_qa', methods=['POST'])
 def get_answer_qa():

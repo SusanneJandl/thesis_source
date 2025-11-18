@@ -35,7 +35,6 @@ namespace ChatbotWPF
             double seconds = (done - start).TotalSeconds;
             string line = $"{Environment.NewLine}{Environment.NewLine}{purpose}: {seconds:F2} s{Environment.NewLine}";
             File.AppendAllText(logFilePath, line);
-            File.AppendAllText(logFilePath, Environment.NewLine + "---" + Environment.NewLine);
         }
 
         public static void StringLog(string type, string log)
@@ -43,9 +42,12 @@ namespace ChatbotWPF
             File.AppendAllText(logFilePath, type + ": " + log + Environment.NewLine);
         }
 
-        public static void RamUsage(string purpose, int RAM)
+        public static void RamUsage(string purpose, int MIN, int MAX, int AVG)
         {
-            File.AppendAllText(logFilePath, purpose + "RAM usage: " + RAM + " MB" + Environment.NewLine);
+            File.AppendAllText(logFilePath, Environment.NewLine + purpose + ": MIN=" + MIN + " MB | MAX=" + MAX + " MB | AVG=" + AVG + "MB");
+        }
+        public static void EndLog()
+        {
             File.AppendAllText(logFilePath, "---" + Environment.NewLine);
         }
     }

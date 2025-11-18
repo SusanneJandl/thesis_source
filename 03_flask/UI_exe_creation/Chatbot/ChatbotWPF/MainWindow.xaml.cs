@@ -34,7 +34,8 @@ namespace ChatbotWPF
         private async void SendButton_Click(object sender, RoutedEventArgs e)
         {
             Log.startTotal = DateTime.Now;
-            await SendMessage();
+            RamTracker.Start();
+            _ = SendMessage();
         }
 
 
@@ -44,6 +45,7 @@ namespace ChatbotWPF
             await conversation.WithWholeAnswerAsync();
             Log.doneTotal = DateTime.Now;
             Log.TimeLog(Log.startTotal, Log.doneTotal, "TOTAL TIME");
+            RamTracker.StopAndLog("C# RAM USAGE");
         }
 
         private void OnSwitch(object sender, RoutedEventArgs e)
