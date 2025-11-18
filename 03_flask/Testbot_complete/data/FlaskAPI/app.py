@@ -14,8 +14,8 @@ import statistics
 import os
 import psutil
 
-file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" #laptop
-#file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.txt" #PC
+# file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" #laptop
+file = "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.md" #PC
 
 class RamTracker:
     def __init__(self):
