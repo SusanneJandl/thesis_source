@@ -14,7 +14,7 @@ namespace ChatbotWPF
         public static DateTime startTotal;
         public static DateTime doneTotal;
 
-        public static string logFilePath = Consts.DEVICE == "laptop"? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" : "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.md";
+        public static string logFilePath = Consts.DEVICE == "laptop"? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.md";
         public static void History ()
         {
             if (Consts.HISTORY)
@@ -33,7 +33,7 @@ namespace ChatbotWPF
         public static void TimeLog(DateTime start, DateTime done, string purpose)
         {
             double seconds = (done - start).TotalSeconds;
-            string line = $"{Environment.NewLine}{Environment.NewLine}{purpose}: {seconds:F2} s{Environment.NewLine}";
+            string line = $" | {purpose}: {seconds:F2} s{Environment.NewLine}";
             File.AppendAllText(logFilePath, line);
         }
 
@@ -45,7 +45,10 @@ namespace ChatbotWPF
         public static void RamUsage(string purpose, int MIN, int MAX, int AVG)
         {
             File.AppendAllText(logFilePath, Environment.NewLine + purpose + ": MIN=" + MIN + " MB | MAX=" + MAX + " MB | AVG=" + AVG + "MB");
-            File.AppendAllText(logFilePath, "---" + Environment.NewLine);
+        }
+        public static void End()
+        {
+            File.AppendAllText(logFilePath, Environment.NewLine + Environment.NewLine + "================================================================" + Environment.NewLine);
         }
     }
 }

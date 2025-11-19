@@ -1,21 +1,29 @@
 @echo off
+REM -------------------------------
 REM Step 1: Activate Python environment
+REM -------------------------------
 echo Activating python environment...
-call .\data\chat_env\Scripts\activate
+call ".\data\chat_env\Scripts\activate"
 
-REM Step 2: Start FlaskAPI
-echo Starting FlaskAPI...
+REM -------------------------------
+REM Step 2: Start Flask API with Waitress (MINIMIZED)
+REM -------------------------------
+echo Starting FlaskAPI with Waitress...
 cd .\data\FlaskAPI\
-start cmd /k "python app.py"
+start /min cmd /k "waitress-serve --host=0.0.0.0 --port=5000 app:app"
 
-REM Step 3: Start Ollama
+REM -------------------------------
+REM Step 3: Start Ollama (MINIMIZED)
+REM -------------------------------
 echo Starting Ollama...
-start cmd /k "ollama serve"
+start /min cmd /k "ollama serve"
 
-REM Step 4: Start Chatbot
+REM -------------------------------
+REM Step 4: Start Chatbot UI
+REM -------------------------------
 echo Starting Chatbot...
 cd ..\UI\
-start ChatbotWPF.exe
+start "" ChatbotWPF.exe
 
-echo Chatbot started successfully
+echo Chatbot started successfully.
 exit

@@ -8,7 +8,11 @@ namespace ChatbotWPF
 {
     internal static class RamTracker
     {
-        private static readonly List<double> _samplesMb = new();
+        private static readonly List<double> _samplesTotalMb = new();
+        private static readonly List<double> _samplesCSharpMb = new();
+        private static readonly List<double> _samplesFlaskMb = new();
+        private static readonly List<double> _samplesOllamaMb = new();
+
         private static readonly object _lock = new();
         private static System.Timers.Timer? _timer;
 
@@ -16,13 +20,15 @@ namespace ChatbotWPF
         {
             lock (_lock)
             {
-                // Already running? Don’t start again.
                 if (_timer != null)
-                    return;
+                    return; // already running
 
-                _samplesMb.Clear();
+                _samplesTotalMb.Clear();
+                _samplesCSharpMb.Clear();
+                _samplesFlaskMb.Clear();
+                _samplesOllamaMb.Clear();
 
-                _timer = new System.Timers.Timer(1000); // 1000 ms = 1 second
+                _timer = new System.Timers.Timer(500);
                 _timer.AutoReset = true;
                 _timer.Elapsed += Timer_Elapsed;
                 _timer.Start();
@@ -33,23 +39,80 @@ namespace ChatbotWPF
         {
             try
             {
-                using Process process = Process.GetCurrentProcess();
-                double mb = process.WorkingSet64 / (1024.0 * 1024.0); // bytes → MB
+                double csharpMb = 0;
+                double flaskMb = 0;
+                double ollamaMb = 0;
+
+                // C# (current) process
+                using (Process current = Process.GetCurrentProcess())
+                {
+                    csharpMb = current.WorkingSet64 / (1024.0 * 1024.0);
+                }
+
+                // Flask – usually "python" on Windows
+                flaskMb = GetProcessGroupMemoryMb("python");
+
+                // Ollama – assume process name "ollama"
+                // (adjust if your exe name differs)
+                ollamaMb = GetProcessGroupMemoryMb("ollama");
+
+                double totalMb = csharpMb + flaskMb + ollamaMb;
 
                 lock (_lock)
                 {
-                    _samplesMb.Add(mb);
+                    _samplesCSharpMb.Add(csharpMb);
+                    _samplesFlaskMb.Add(flaskMb);
+                    _samplesOllamaMb.Add(ollamaMb);
+                    _samplesTotalMb.Add(totalMb);
                 }
             }
             catch
             {
-                // Swallow any sampling error – logging must not crash the app
+                // never let RAM tracking crash the app
             }
         }
 
+        private static double GetProcessGroupMemoryMb(string nameSubstring)
+        {
+            try
+            {
+                double totalMb = 0;
+
+                foreach (var p in Process.GetProcesses())
+                {
+                    try
+                    {
+                        if (p.ProcessName.IndexOf(nameSubstring,
+                                StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            totalMb += p.WorkingSet64 / (1024.0 * 1024.0);
+                        }
+                    }
+                    catch
+                    {
+                        // process might have exited or be inaccessible
+                    }
+                    finally
+                    {
+                        p.Dispose();
+                    }
+                }
+
+                return totalMb;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+
         public static void StopAndLog(string purpose)
         {
-            List<double> snapshot;
+            List<double> totalSnapshot;
+            List<double> csharpSnapshot;
+            List<double> flaskSnapshot;
+            List<double> ollamaSnapshot;
 
             lock (_lock)
             {
@@ -60,22 +123,52 @@ namespace ChatbotWPF
                     _timer = null;
                 }
 
-                snapshot = new List<double>(_samplesMb);
-                _samplesMb.Clear();
+                totalSnapshot = new List<double>(_samplesTotalMb);
+                csharpSnapshot = new List<double>(_samplesCSharpMb);
+                flaskSnapshot = new List<double>(_samplesFlaskMb);
+                ollamaSnapshot = new List<double>(_samplesOllamaMb);
+
+                _samplesTotalMb.Clear();
+                _samplesCSharpMb.Clear();
+                _samplesFlaskMb.Clear();
+                _samplesOllamaMb.Clear();
             }
 
-            if (snapshot.Count == 0)
+            if (totalSnapshot.Count == 0 &&
+                csharpSnapshot.Count == 0 &&
+                flaskSnapshot.Count == 0 &&
+                ollamaSnapshot.Count == 0)
             {
-                // No samples, nothing to log
-                return;
+                return; // nothing to log
             }
 
-            double min = snapshot.Min();
-            double max = snapshot.Max();
-            double avg = snapshot.Average();
+            // helper
+            (int Min, int Max, int Avg) Summarize(List<double> list)
+            {
+                if (list == null || list.Count == 0)
+                    return (0, 0, 0);
 
-            // Round to int MB for your existing Log.RamUsage(string, int)
-            Log.RamUsage("C# RAM USAGE", (int)Math.Round(min), (int)Math.Round(max), (int)Math.Round(avg));
+                double min = list.Min();
+                double max = list.Max();
+                double avg = list.Average();
+
+                return ((int)Math.Round(min),
+                        (int)Math.Round(max),
+                        (int)Math.Round(avg));
+            }
+
+            // compute summaries
+            var total = Summarize(totalSnapshot);
+            var csharp = Summarize(csharpSnapshot);
+            var flask = Summarize(flaskSnapshot);
+            var ollama = Summarize(ollamaSnapshot);
+
+            // Log all four; adjust text as you like
+            Log.RamUsage($"{purpose} TOTAL", total.Min, total.Max, total.Avg);
+            Log.RamUsage($"{purpose} C#", csharp.Min, csharp.Max, csharp.Avg);
+            Log.RamUsage($"{purpose} FLASK", flask.Min, flask.Max, flask.Avg);
+            Log.RamUsage($"{purpose} OLLAMA", ollama.Min, ollama.Max, ollama.Avg);
+            Log.End();
         }
     }
 }

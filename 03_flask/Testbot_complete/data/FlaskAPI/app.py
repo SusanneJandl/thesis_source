@@ -20,56 +20,78 @@ file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_fla
 class RamTracker:
     def __init__(self):
         self.log_file = file        
-        self.samples_mb: list[float] = []
+        self.samples_flask = []
+        self.samples_ollama = []
+
         self._stop_event = threading.Event()
         self._thread: threading.Thread | None = None
 
     def start(self):
-        if self._thread is not None and self._thread.is_alive():
-            return  # already running
-
+        if self._thread and self._thread.is_alive():
+            return
         self._stop_event.clear()
         self._thread = threading.Thread(target=self._run_sampler, daemon=True)
         self._thread.start()
 
     def _run_sampler(self):
-        proc = psutil.Process(os.getpid())
+        flask_proc = psutil.Process(os.getpid())
+
         while not self._stop_event.is_set():
+            # --- Flask process RAM ---
             try:
-                rss_mb = proc.memory_info().rss / (1024 * 1024)  # bytes -> MB
-                self.samples_mb.append(rss_mb)
+                rss_flask = flask_proc.memory_info().rss / (1024 * 1024)
+                self.samples_flask.append(rss_flask)
             except Exception:
-                # never let logging crash the app
                 pass
-            # sample every second
+
+            # --- Ollama RAM ---
+            try:
+                rss_ollama = 0.0
+                for p in psutil.process_iter(["name"]):
+                    try:
+                        if p.info["name"] and "ollama" in p.info["name"].lower():
+                            rss_ollama += p.memory_info().rss
+                    except psutil.Error:
+                        pass
+
+                self.samples_ollama.append(rss_ollama / (1024 * 1024))
+            except Exception:
+                pass
+
             time.sleep(1.0)
 
     def stop_and_log(self):
-        # stop thread
+        # Stop thread
         self._stop_event.set()
-        if self._thread is not None:
-            self._thread.join(timeout=2.0)
+        if self._thread:
+            self._thread.join(timeout=2)
             self._thread = None
 
-        if not self.samples_mb:
-            return  # nothing to log
+        # No samples?
+        if not self.samples_flask and not self.samples_ollama:
+            return
 
-        min_mb = min(self.samples_mb)
-        max_mb = max(self.samples_mb)
-        avg_mb = statistics.fmean(self.samples_mb)
+        def summarize(values):
+            return (
+                min(values),
+                max(values),
+                statistics.fmean(values),
+            )
 
-        line = (
-            f"\n\nPYTHON RAM USAGE : "
-            f"MIN={min_mb:.2f} MB | MAX={max_mb:.2f} MB | AVG={avg_mb:.2f} MB"
-        )
+        with open(self.log_file, "a", encoding="utf-8") as f:
+            if self.samples_flask:
+                mn, mx, avg = summarize(self.samples_flask)
+                f.write(
+                    f"\n\nFLASK RAM USAGE: "
+                    f"MIN={mn:.2f} MB | MAX={mx:.2f} MB | AVG={avg:.2f} MB"
+                )
 
-        try:
-            with open(self.log_file, "a", encoding="utf-8") as f:
-                f.write(line) 
-        except Exception:
-            # don’t kill the request if logging fails
-            pass
-
+            if self.samples_ollama:
+                mn, mx, avg = summarize(self.samples_ollama)
+                f.write(
+                    f"\n\nOLLAMA RAM USAGE: "
+                    f"MIN={mn:.2f} MB | MAX={mx:.2f} MB | AVG={avg:.2f} MB"
+                )
 app = Flask(__name__)
 
 @app.route('/')
@@ -163,8 +185,8 @@ def get_answer():
     """
     de_en_time = 0
 
-    ram_tracker = RamTracker()
-    ram_tracker.start()
+    # ram_tracker = RamTracker()
+    # ram_tracker.start()
 
     try:
         data = request.json
@@ -200,19 +222,19 @@ def get_answer():
             if language=="DE":
                 f.write(f"\nGERMAN ANSWER:\n    {answer_de}\n\n")
 
-            f.write(f"TIMINGS (in seconds):\n")
+            f.write(f"TIMINGS:\n")
             if language=="DE":
                 f.write(f"TO EN = {de_en_time:.2f} s | ")
             f.write(f"CONTEXT = {context_time:.2f} s | ANSWER EN = {answer_time:.2f} s ({model})")
             if language=="DE":
-                f.write(f" | TO DE = {en_de_time:.2f} s")
+                f.write(f" | TO DE = {en_de_time:.2f} s")                                                                                              
 
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
-    finally:
+    # finally:
         # --- RAM tracking: stop and log once per request ---
-        ram_tracker.stop_and_log()
+        # ram_tracker.stop_and_log()
     
 @app.route('/answer_qa', methods=['POST'])
 def get_answer_qa():
