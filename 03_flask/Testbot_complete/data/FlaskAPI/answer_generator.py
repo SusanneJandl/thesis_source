@@ -3,7 +3,6 @@ from translation import translate_to_de
 from datetime import datetime
 
 def retrieve_answer(context: str, question: str, language: str, history: list) -> str:
-    print(f"\n\nHISTORY: {history}\n\n")
     prompt = ""
     starttime = datetime.now()
     if history == None or history == []:
