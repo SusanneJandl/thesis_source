@@ -9,7 +9,6 @@ import json
 import pickle
 from scipy.spatial import cKDTree
 from sentence_transformers import SentenceTransformer
-from translation import translate_to_en
 from datetime import datetime
 
 model_name = '../AI_Models/paraphrase-multilingual-MiniLM-L12-v2'
@@ -80,12 +79,10 @@ def retrieve_context_qa(question: str, topic: str, language: str) -> list:
     query_embedding = model.encode([question], convert_to_numpy=True)  # shape: (1, embedding_dim)
 
     distance, closest_idx = qa_tree.query(query_embedding, k=1)
+    answer = "No relevant answer found, try rephrasing your question."
 
     if distance < similarity_threshold:  # Good match found
-        result = qa_metadata.get(str(closest_idx[0]), {"question": "No match found", "answer": "No relevant answer found."})
-        print(f"\nBest Match: {result['question']}")
-        print(f"Answer: {result['answer']}")
-        return result["answer"]
-    
-    print("\nNo strong match found. Try rephrasing.")
-    return "No relevant answer found."
+        result = qa_metadata.get(str(closest_idx[0]), {"question": "", "answer":answer})
+        answer = result['answer']
+        
+    return answer

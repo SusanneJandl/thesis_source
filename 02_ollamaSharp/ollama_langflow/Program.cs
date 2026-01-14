@@ -1,52 +1,40 @@
-﻿using OllamaSharp;
-using Python.Included;
-using Python.Runtime;
+﻿using ollama_langflow;
+using OllamaSharp;
 
-Installer.InstallPath = Path.GetFullPath(".");
-
-// Install Python and required modules
-await Installer.SetupPython();
-await Installer.PipInstallModule("requests");
-await Installer.PipInstallModule("langflow_prompt");
-
-AppContext.SetSwitch("System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization", true);
-
-// Function to generate context using Python
-string Context(string question)
+async Task<string> ContextAsync(string question)
 {
-    string context = "";
-    // Initialize Python engine
-    PythonEngine.Initialize();
-    using (Py.GIL())
-    {
-        try
-        {
-            dynamic prompt_generator = Py.Import("langflow_prompt");
-            context = prompt_generator.query_langflow(question).ToString();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error fetching context: {ex.Message}");
-            context = "Keine zusätzlichen Informationen verfügbar.";
-        }
-    }
-    PythonEngine.Shutdown();
-    return context;
+    string? context = await LangflowClient._langflowClient.QueryLangflowAsync(question);
+
+    return string.IsNullOrWhiteSpace(context)
+        ? "Keine zusätzlichen Informationen verfügbar."
+        : context;
 }
 
+string Context(string question)
+{
+    try
+    {
+        return ContextAsync(question).GetAwaiter().GetResult();
+    }
+    catch
+    {
+        return "Keine zusätzlichen Informationen verfügbar.";
+    }
+}
+
+
 // Chat variables
-bool historyEnabled = false;
 List<string> memory = [];
-string message = "";
+string question = "";
 var uri = new Uri("http://localhost:11434");
 var ollama = new OllamaApiClient(uri);
 string newMemory = "";
-
 ollama.SelectedModel = "llama3.2:3b";
+Log.History();
 
 while (true)
 {
-    if (historyEnabled)
+    if (Consts.HISTORY)
     { 
         while (memory.Count > 2)
         {
@@ -55,35 +43,67 @@ while (true)
     }
     newMemory = "\n";
 
+    
     // Chat with Ollama
     var chat = new Chat(ollama);
     Console.WriteLine("\nGib eine Frage ein: ");
     var input = Console.ReadLine();
-    
-    message = $"message: {input}";
-    var context = $"context: {Context(message)}";
+    Log.StringLog("QUESTION", input ?? "none" + "\n\n");
+    question = input ?? "none";
+
+    Log.startTotal = DateTime.Now;
+    RamTracker.Start();
+
+    var context = $"{Context(question)}";
+    Log.StringLog("CONTEXT", context + "\n\n");
+    Log.doneContext = DateTime.Now;
     string prompt = "";
-    if (historyEnabled)
+    if (Consts.HISTORY)
     {
-        prompt = $"Answer the question in the according language: '{message}'.\n Take into account the previous conversation: '{memory}' and use the following information for your answer: '{context}'";
+        Log.StringLog("HISTORY", string.Join(" ", memory));
+        prompt = $"Answer the following question based on the provided information:\n" +
+                 $"Question: {question}\n" +
+                 $"Chat History: {memory}\n" +
+                 $"Information: {context}" +
+                 $"Answer German or English depending on the question.\n";
+
     }
     else
     {
-        prompt = $"Answer the question in the according language: '{message}'.\n Use the following information for your answer: '{context}'";
+        prompt = $"Answer the following question based on the provided information:\n" +
+                  $"Question: {question}\n" +
+                  $"Information: {context}" +
+                  $"Answer German or English depending on the question.\n";
     }
-    newMemory = $"User: {message} \n Assistant: ";
-
+    newMemory = $"User: {question} \n Assistant: ";
+    string answer = "";
+    bool isFirst = true;
     try
     {
         await foreach (var answerToken in chat.SendAsync(prompt))
         {
+            if (isFirst)
+            {
+                Log.startStream = DateTime.Now;
+                isFirst = false;
+            }
             Console.Write(answerToken);
             newMemory += answerToken;
+            answer += answerToken;
         }
-        if (historyEnabled)
+        if (Consts.HISTORY)
         {
             memory.Add(newMemory);
         }
+        Log.StringLog("ANSWER", answer + "\n\n");
+        Log.doneTotal = DateTime.Now;
+        Log.StringLog("TIMINGS", "");
+        Log.TimeLog(Log.startTotal, Log.doneContext, "CONTEXT");
+        Log.TimeLog(Log.doneContext, Log.startStream, "STREAM START");
+        Log.TimeLog(Log.doneContext, Log.doneTotal, "(GENERATION)");
+        Log.TimeLog(Log.startTotal, Log.doneTotal, "TOTAL");
+        
+        RamTracker.StopAndLog("RAM USAGE");
     }
     catch (Exception ex)
     {

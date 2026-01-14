@@ -18,7 +18,7 @@ namespace ChatbotWPF
             FlaskAPIService answer = new();
             string query = input;
             
-            string response = await answer.RetrieveAnswerAsync(query);
+            string response = await answer.RetrieveAnswerQA(query);
             
             mainWindow.ChatHistory.Add("Bot: ");
             int botIndex = mainWindow.ChatHistory.Count - 1;

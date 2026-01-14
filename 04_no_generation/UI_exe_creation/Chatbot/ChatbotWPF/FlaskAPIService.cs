@@ -6,7 +6,7 @@ namespace ChatbotWPF
 {
     internal class FlaskAPIService
     {
-        public async Task<string> RetrieveAnswerAsync(string query)
+        public async Task<string> RetrieveAnswerQA(string query)
         {
             string answer = "";
 
