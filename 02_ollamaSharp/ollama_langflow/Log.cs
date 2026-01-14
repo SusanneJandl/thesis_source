@@ -17,7 +17,7 @@ namespace ollama_langflow
         public static DateTime doneContext;
         public static DateTime startGeneration;
 
-        public static string logFilePath = Consts.DEVICE == "laptop"? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\02_ollamaSharp\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\02_ollamaSharp\\testresults.md";
+        public static string logFilePath = Consts.DEVICE == "laptop"? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\02_ollamaSharp\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC_8\\02_ollamaSharp\\testresults.md";
         public static void History ()
         {
             if (Consts.HISTORY)

@@ -22,7 +22,6 @@ string Context(string question)
     }
 }
 
-
 // Chat variables
 List<string> memory = [];
 string question = "";
