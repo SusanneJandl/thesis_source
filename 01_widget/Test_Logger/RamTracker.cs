@@ -108,7 +108,7 @@ namespace Test_Logger
 
         // --- STOP + LOG --------------------------------------------------------------
 
-        public static void StopAndLog(string purpose)
+        public static void StopAndLog()
         {
             List<double> totalSnapshot;
             List<double> langflowSnapshot;
@@ -153,16 +153,15 @@ namespace Test_Logger
                             (int)Math.Round(avg));
                 }
 
-                var totalPort = Summarize(totalSnapshot);
-                var langflowName = Summarize(langflowSnapshot);
-                var ollamaName = Summarize(ollamaSnapshot);
+                var total = Summarize(totalSnapshot);
+                var langflow = Summarize(langflowSnapshot);
+                var ollama = Summarize(ollamaSnapshot);
 
-                // TOTAL is port-based by design
-                Log.RamUsage($"{purpose} TOTAL_PORT", totalPort.Min, totalPort.Max, totalPort.Avg);
+                Log.RamUsage($"TOTAL", total.Min, total.Max, total.Avg);
 
-                Log.RamUsage($"{purpose} LANGFLOW_NAME", langflowName.Min, langflowName.Max, langflowName.Avg);
+                Log.RamUsage($"LANGFLOW", langflow.Min, langflow.Max, langflow.Avg);
                 
-                Log.RamUsage($"{purpose} OLLAMA", ollamaName.Min, ollamaName.Max, ollamaName.Avg);
+                Log.RamUsage($"OLLAMA", ollama.Min, ollama.Max, ollama.Avg);
 
                 Log.End();
             }

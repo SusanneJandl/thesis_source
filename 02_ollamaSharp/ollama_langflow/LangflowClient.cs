@@ -37,7 +37,7 @@ public class LangflowClient
 {
     private static readonly HttpClient _httpClient = new HttpClient();
     private const string LangflowUrl =
-        "http://127.0.0.1:7888/api/v1/run/228f99f9-fbc1-469d-bbd9-efd9bef15c29";
+        "http://127.0.0.1:7888/api/v1/run/c1877972-c54e-4e59-a7b3-8a725124011d";
     
     public static readonly LangflowClient _langflowClient = new LangflowClient();
 

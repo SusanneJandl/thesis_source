@@ -14,6 +14,8 @@ namespace Test_Logger
             Console.WriteLine("Press ENTER to START.");
             Console.WriteLine("Press ENTER again to STOP and log.");
             Console.WriteLine("Press ESC to exit.");
+            DateTime startTime = DateTime.Now;
+            DateTime endTime = DateTime.Now;
 
             while (true)
             {
@@ -26,13 +28,15 @@ namespace Test_Logger
                 {
                     if (!_running)
                     {
+                        startTime = DateTime.Now;
+
                         _runCount++;
 
                         if (_runCount > MaxRuns)
                             _runCount = 1; // wrap back to 1
 
                         // Log run number + line break to file
-                        Log.StringLog("", $"# {_runCount}", "");
+                        Log.StringLog("", $"# {_runCount}\nCONTEXT:\nANSWER:\n", "");
 
                         Console.WriteLine($"[START] Run #{_runCount} tracking started...");
                         RamTracker.Start();
@@ -41,7 +45,9 @@ namespace Test_Logger
                     else
                     {
                         Console.WriteLine("[STOP] RAM tracking stopped and logged.");
-                        RamTracker.StopAndLog($"RUN {_runCount}");
+                        endTime = DateTime.Now;
+                        Log.TimeLog(startTime, endTime, $"Run #{_runCount} Duration");
+                        RamTracker.StopAndLog();
                         _running = false;
                     }
                 }

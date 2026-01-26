@@ -11,11 +11,11 @@ namespace Test_Logger
 {
     internal class Log
     {
-        public static bool laptop = true;
+        public static bool laptop = false;
         public static DateTime startTotal;
         public static DateTime doneTotal;
 
-        public static string logFilePath = laptop? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\01_widget\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.md";
+        public static string logFilePath = laptop? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\01_widget\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC_8\\01_widget\\testresults.md";
         
         public static void TimeLog(DateTime start, DateTime done, string purpose)
         {
