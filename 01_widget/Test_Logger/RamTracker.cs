@@ -8,38 +8,35 @@ namespace Test_Logger
 {
     internal static class RamTracker
     {
-        // Samples (MB)
-        private static readonly List<double> _samplesTotalMb = new();
-        private static readonly List<double> _samplesLangflowMb = new();
-        private static readonly List<double> _samplesOllamaMb = new();
+        private static readonly List<double> samplesTotalMb = new();
+        private static readonly List<double> samplesLangflowMb = new();
+        private static readonly List<double> samplesOllamaMb = new();
         
         private static readonly object _lock = new();
-        private static System.Timers.Timer? _timer;
+        private static System.Timers.Timer? timer;
 
-        // Adjust these if needed
-        private const string LangflowNamePattern = "python";   // or "langflow" if you run it as that
+        private const string LangflowNamePattern = "python";
         private const string OllamaNamePattern = "ollama";
 
-        // Sampling interval (ms)
         private const double IntervalMs = 500;
 
         public static void Start()
         {
             lock (_lock)
             {
-                if (_timer != null)
-                    return; // already running
+                if (timer != null)
+                    return;
 
-                _samplesTotalMb.Clear();
-                _samplesLangflowMb.Clear();
-                _samplesOllamaMb.Clear();
+                samplesTotalMb.Clear();
+                samplesLangflowMb.Clear();
+                samplesOllamaMb.Clear();
                 
-                _timer = new System.Timers.Timer(IntervalMs)
+                timer = new System.Timers.Timer(IntervalMs)
                 {
                     AutoReset = true
                 };
-                _timer.Elapsed += Timer_Elapsed;
-                _timer.Start();
+                timer.Elapsed += Timer_Elapsed;
+                timer.Start();
             }
         }
 
@@ -49,25 +46,18 @@ namespace Test_Logger
             {
                 double langflowMb = GetProcessGroupMemoryMbByName(LangflowNamePattern);
                 double ollamaMb = GetProcessGroupMemoryMbByName(OllamaNamePattern);
-
-                                // TOTAL = port-based Langflow + port-based Ollama
                 double totalMb = langflowMb + ollamaMb;
 
                 lock (_lock)
                 {
-                    _samplesLangflowMb.Add(langflowMb);
-                    _samplesOllamaMb.Add(ollamaMb);
+                    samplesLangflowMb.Add(langflowMb);
+                    samplesOllamaMb.Add(ollamaMb);
 
-                    _samplesTotalMb.Add(totalMb);
+                    samplesTotalMb.Add(totalMb);
                 }
             }
-            catch
-            {
-                // Never let RAM tracking crash the app
-            }
+            catch{}
         }
-
-        // --- NAME-BASED MEMORY (substring match) -----------------------------------
 
         private static double GetProcessGroupMemoryMbByName(string nameSubstring)
         {
@@ -85,10 +75,7 @@ namespace Test_Logger
                             totalMb += p.WorkingSet64 / (1024.0 * 1024.0);
                         }
                     }
-                    catch
-                    {
-                        // process might have exited or be inaccessible
-                    }
+                    catch{}
                     finally
                     {
                         p.Dispose();
@@ -104,10 +91,6 @@ namespace Test_Logger
         }
 
         
-        
-
-        // --- STOP + LOG --------------------------------------------------------------
-
         public static void StopAndLog()
         {
             List<double> totalSnapshot;
@@ -116,20 +99,20 @@ namespace Test_Logger
 
             lock (_lock)
             {
-                if (_timer != null)
+                if (timer != null)
                 {
-                    _timer.Stop();
-                    _timer.Dispose();
-                    _timer = null;
+                    timer.Stop();
+                    timer.Dispose();
+                    timer = null;
                 }
 
-                totalSnapshot = new List<double>(_samplesTotalMb);
-                langflowSnapshot = new List<double>(_samplesLangflowMb);
-                ollamaSnapshot = new List<double>(_samplesOllamaMb);
+                totalSnapshot = new List<double>(samplesTotalMb);
+                langflowSnapshot = new List<double>(samplesLangflowMb);
+                ollamaSnapshot = new List<double>(samplesOllamaMb);
 
-                _samplesTotalMb.Clear();
-                _samplesLangflowMb.Clear();
-                _samplesOllamaMb.Clear();
+                samplesTotalMb.Clear();
+                samplesLangflowMb.Clear();
+                samplesOllamaMb.Clear();
 
 
                 if (totalSnapshot.Count == 0 &&

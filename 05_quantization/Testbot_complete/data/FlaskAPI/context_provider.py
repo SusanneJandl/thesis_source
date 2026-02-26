@@ -1,10 +1,3 @@
-# context_provider.py
-# This script utilizes the 'all-mpnet-base-v2' model from Sentence Transformers.
-# The model is licensed under the Apache License 2.0.
-
-# This script now utilizes scipy.spatial.cKDTree for retrieval
-# to avoid installing extra C++ build tools.
-
 import json
 import pickle
 from scipy.spatial import cKDTree

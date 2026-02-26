@@ -4,7 +4,7 @@ namespace ChatbotWPF
 {
     internal class Conversation
     {
-        public async Task WithWholeAnswerAsync()
+        public static async Task WithWholeAnswerAsync()
         {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             string input = mainWindow.UserInput.Text;

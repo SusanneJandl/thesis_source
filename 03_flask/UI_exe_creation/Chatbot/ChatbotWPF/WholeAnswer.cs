@@ -8,5 +8,5 @@ namespace ChatbotWPF
         [JsonProperty("answer")]
         public string? Answer { get; set; }
     
-}
+    }
 }

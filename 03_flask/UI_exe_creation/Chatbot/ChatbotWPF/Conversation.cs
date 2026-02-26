@@ -4,7 +4,7 @@ namespace ChatbotWPF
 {
     internal class Conversation
     {
-        public async Task WithWholeAnswerAsync()
+        public static async Task WithWholeAnswerAsync()
         {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             string input = mainWindow.UserInput.Text;
@@ -26,10 +26,9 @@ namespace ChatbotWPF
                 }
             }
 
-            FlaskAPIService answer = new();
             string query = input;
             
-            string response = await answer.RetrieveAnswerAsync(query, history);
+            string response = await FlaskAPIService.RetrieveAnswerAsync(query, history);
             
             mainWindow.ChatHistory.Add("Bot: ");
             int botIndex = mainWindow.ChatHistory.Count - 1;

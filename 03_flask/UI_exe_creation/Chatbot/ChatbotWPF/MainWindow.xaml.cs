@@ -41,8 +41,7 @@ namespace ChatbotWPF
 
         private async Task SendMessage()
         {
-            Conversation conversation = new();
-            await conversation.WithWholeAnswerAsync();
+            await Conversation.WithWholeAnswerAsync();
             Log.doneTotal = DateTime.Now;
             Log.TimeLog(Log.startTotal, Log.doneTotal, "TOTAL");
             RamTracker.StopAndLog("RAM USAGE");

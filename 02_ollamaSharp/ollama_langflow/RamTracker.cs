@@ -8,10 +8,10 @@ namespace ollama_langflow
 {
     internal static class RamTracker
     {
-        private static readonly List<double> _samplesTotalMb = new();
-        private static readonly List<double> _samplesCSharpMb = new();
-        private static readonly List<double> _samplesLangflowMb = new();
-        private static readonly List<double> _samplesOllamaMb = new();
+        private static readonly List<double> _samplesTotalMb = [];
+        private static readonly List<double> _samplesCSharpMb = [];
+        private static readonly List<double> _samplesLangflowMb = [];
+        private static readonly List<double> _samplesOllamaMb = [];
 
         private static readonly object _lock = new();
         private static System.Timers.Timer? _timer;
@@ -21,7 +21,7 @@ namespace ollama_langflow
             lock (_lock)
             {
                 if (_timer != null)
-                    return; // already running
+                    return;
 
                 _samplesTotalMb.Clear();
                 _samplesCSharpMb.Clear();
@@ -43,17 +43,13 @@ namespace ollama_langflow
                 double langflowMb = 0;
                 double ollamaMb = 0;
 
-                // C# (current) process
                 using (Process current = Process.GetCurrentProcess())
                 {
                     csharpMb = current.WorkingSet64 / (1024.0 * 1024.0);
                 }
 
-                // Flask – usually "python" on Windows
                 langflowMb = GetProcessGroupMemoryMb("python");
 
-                // Ollama – assume process name "ollama"
-                // (adjust if your exe name differs)
                 ollamaMb = GetProcessGroupMemoryMb("ollama");
 
                 double totalMb = csharpMb + langflowMb + ollamaMb;
@@ -66,10 +62,7 @@ namespace ollama_langflow
                     _samplesTotalMb.Add(totalMb);
                 }
             }
-            catch
-            {
-                // never let RAM tracking crash the app
-            }
+            catch{}
         }
 
         private static double GetProcessGroupMemoryMb(string nameSubstring)
@@ -88,10 +81,7 @@ namespace ollama_langflow
                             totalMb += p.WorkingSet64 / (1024.0 * 1024.0);
                         }
                     }
-                    catch
-                    {
-                        // process might have exited or be inaccessible
-                    }
+                    catch{}
                     finally
                     {
                         p.Dispose();
@@ -123,10 +113,10 @@ namespace ollama_langflow
                     _timer = null;
                 }
 
-                totalSnapshot = new List<double>(_samplesTotalMb);
-                csharpSnapshot = new List<double>(_samplesCSharpMb);
-                langflowSnapshot = new List<double>(_samplesLangflowMb);
-                ollamaSnapshot = new List<double>(_samplesOllamaMb);
+                totalSnapshot = [.. _samplesTotalMb];
+                csharpSnapshot = [.. _samplesCSharpMb];
+                langflowSnapshot = [.. _samplesLangflowMb];
+                ollamaSnapshot = [.. _samplesOllamaMb];
 
                 _samplesTotalMb.Clear();
                 _samplesCSharpMb.Clear();

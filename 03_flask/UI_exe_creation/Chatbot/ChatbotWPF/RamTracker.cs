@@ -8,10 +8,10 @@ namespace ChatbotWPF
 {
     internal static class RamTracker
     {
-        private static readonly List<double> _samplesTotalMb = new();
-        private static readonly List<double> _samplesCSharpMb = new();
-        private static readonly List<double> _samplesFlaskMb = new();
-        private static readonly List<double> _samplesOllamaMb = new();
+        private static readonly List<double> _samplesTotalMb = [];
+        private static readonly List<double> _samplesCSharpMb = [];
+        private static readonly List<double> _samplesFlaskMb = [];
+        private static readonly List<double> _samplesOllamaMb = [];
 
         private static readonly object _lock = new();
         private static System.Timers.Timer? _timer;
@@ -66,10 +66,7 @@ namespace ChatbotWPF
                     _samplesTotalMb.Add(totalMb);
                 }
             }
-            catch
-            {
-                // never let RAM tracking crash the app
-            }
+            catch{}
         }
 
         private static double GetProcessGroupMemoryMb(string nameSubstring)

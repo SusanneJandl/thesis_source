@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Test_Logger
+﻿namespace Test_Logger
 {
     internal class Log
     {
-        public static bool laptop = false;
+        public static bool laptop = true;
         public static DateTime startTotal;
         public static DateTime doneTotal;
 
@@ -24,9 +15,9 @@ namespace Test_Logger
             File.AppendAllText(logFilePath, line);
         }
 
-        public static void StringLog(string type, string log, string? semicolon = ": ")
+        public static void StringLog(string type, string log, string? colon = ": ")
         {
-            File.AppendAllText(logFilePath, type + semicolon + log + Environment.NewLine);
+            File.AppendAllText(logFilePath, type + colon + log + Environment.NewLine);
         }
 
         public static void RamUsage(string purpose, int MIN, int MAX, int AVG)

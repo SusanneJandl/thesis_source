@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Test_Logger
+﻿namespace Test_Logger
 {
     internal class Program
     {
-        private static bool _running = false;
-        private static int _runCount = 0;
-        private const int MaxRuns = 8;
+        private static bool running = false;
+        private static int runCount = 0;
+        private const int maxRuns = 8;
 
         static void Main(string[] args)
         {
@@ -26,29 +24,28 @@ namespace Test_Logger
 
                 if (key.Key == ConsoleKey.Enter)
                 {
-                    if (!_running)
+                    if (!running)
                     {
                         startTime = DateTime.Now;
 
-                        _runCount++;
+                        runCount++;
 
-                        if (_runCount > MaxRuns)
-                            _runCount = 1; // wrap back to 1
+                        if (runCount > maxRuns)
+                            runCount = 1;
 
-                        // Log run number + line break to file
-                        Log.StringLog("", $"# {_runCount}\nCONTEXT:\nANSWER:\n", "");
+                        Log.StringLog("", $"# {runCount}\nCONTEXT:\nANSWER:\n", "");
 
-                        Console.WriteLine($"[START] Run #{_runCount} tracking started...");
+                        Console.WriteLine($"[START] Run #{runCount} tracking started...");
                         RamTracker.Start();
-                        _running = true;
+                        running = true;
                     }
                     else
                     {
                         Console.WriteLine("[STOP] RAM tracking stopped and logged.");
                         endTime = DateTime.Now;
-                        Log.TimeLog(startTime, endTime, $"Run #{_runCount} Duration");
+                        Log.TimeLog(startTime, endTime, $"Run #{runCount} Duration");
                         RamTracker.StopAndLog();
-                        _running = false;
+                        running = false;
                     }
                 }
             }

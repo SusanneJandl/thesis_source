@@ -7,18 +7,18 @@ namespace ChatbotWPF
     public partial class MainWindow : Window
     {
         public ObservableCollection<string> ChatHistory { get; set; }
-        TranslationManager translation = new(typeof(MainWindow));
+        readonly TranslationManager translation = new(typeof(MainWindow));
 
         public MainWindow()
         {
             InitializeComponent();
-            var screenHeight = SystemParameters.WorkArea.Height; // Excludes taskbar
-            var screenWidth = SystemParameters.WorkArea.Width;
+            var screenHeight = SystemParameters.WorkArea.Height;
+            _ = SystemParameters.WorkArea.Width;
 
-            // Set the position for bottom-left corner
-            this.Left = 0; // Left edge of the screen
-            this.Top = screenHeight - this.Height; // Bottom edge, accounting for window height
-            ChatHistory = new ObservableCollection<string>();
+            
+            Left = 0;
+            Top = screenHeight - Height;
+            ChatHistory = [];
             DataContext = this;
             translation.SetCulture(new CultureInfo("de"));
             UpdateStrings();
@@ -40,8 +40,7 @@ namespace ChatbotWPF
 
         private async Task SendMessage()
         {
-            Conversation conversation = new();
-            await conversation.WithWholeAnswerAsync();
+            await Conversation.WithWholeAnswerAsync();
             Log.doneTotal = DateTime.Now;
             Log.TimeLog(Log.startTotal, Log.doneTotal, "TOTAL");
             RamTracker.StopAndLog("RAM USAGE");

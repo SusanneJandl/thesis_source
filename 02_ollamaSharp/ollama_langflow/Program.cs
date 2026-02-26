@@ -27,7 +27,7 @@ List<string> memory = [];
 string question = "";
 var uri = new Uri("http://localhost:11434");
 var ollama = new OllamaApiClient(uri);
-string newMemory = "";
+string newMemory;
 ollama.SelectedModel = "llama3.2:3b";
 Log.History();
 
@@ -42,7 +42,6 @@ while (true)
     }
     newMemory = "\n";
 
-    
     // Chat with Ollama
     var chat = new Chat(ollama);
     Console.WriteLine("\nGib eine Frage ein: ");

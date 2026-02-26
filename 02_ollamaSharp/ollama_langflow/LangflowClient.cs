@@ -1,44 +1,42 @@
 ﻿using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 public class LangflowResponse
 {
-    public List<OutputWrapper> outputs { get; set; }
+    public List<OutputWrapper>? Outputs { get; set; }
 }
 
 public class OutputWrapper
 {
-    public List<OutputItem> outputs { get; set; }
+    public List<OutputItem>? Outputs { get; set; }
 }
 
 public class OutputItem
 {
-    public OutputResults results { get; set; }
+    public OutputResults? Results { get; set; }
 }
 
 public class OutputResults
 {
-    public OutputMessage message { get; set; }
+    public OutputMessage? Message { get; set; }
 }
 
 public class OutputMessage
 {
-    public OutputData data { get; set; }
+    public OutputData? Data { get; set; }
 }
 
 public class OutputData
 {
-    public string text { get; set; }
+    public string? text { get; set; }
 }
 
 public class LangflowClient
 {
     private static readonly HttpClient _httpClient = new HttpClient();
-    private const string LangflowUrl =
-        "http://127.0.0.1:7888/api/v1/run/c1877972-c54e-4e59-a7b3-8a725124011d";
-    
+    //private const string LangflowUrl = "http://127.0.0.1:7888/api/v1/run/c1877972-c54e-4e59-a7b3-8a725124011d"; // PC
+    private const string LangflowUrl = "http://127.0.0.1:7888/api/v1/run/228f99f9-fbc1-469d-bbd9-efd9bef15c29"; // laptop
+
     public static readonly LangflowClient _langflowClient = new LangflowClient();
 
     public async Task<string?> QueryLangflowAsync(string message)
@@ -73,13 +71,12 @@ public class LangflowClient
         {
             var parsed = JsonConvert.DeserializeObject<LangflowResponse>(json);
 
-            // Vollständig null-sicher
             return parsed?
-                .outputs?.Count > 0 ? parsed.outputs[0]?
-                .outputs?.Count > 0 ? parsed.outputs[0].outputs[0]?
-                .results?
-                .message?
-                .data?
+                .Outputs?.Count > 0 ? parsed.Outputs[0]?
+                .Outputs?.Count > 0 ? parsed.Outputs?[0].Outputs?[0]?
+                .Results?
+                .Message?
+                .Data?
                 .text : null : null;
         }
         catch (Exception ex)
