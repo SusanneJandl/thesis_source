@@ -20,7 +20,7 @@ namespace ChatbotWPF
                 var jsonBody = JsonConvert.SerializeObject(new
                 {
                     question = query,
-                    topic = "Fantasy",// Environment.GetEnvironmentVariable("TOPIC")
+                    topic = "Fantasy",
                     language = Consts.LANGUAGE,
                     history
                 });

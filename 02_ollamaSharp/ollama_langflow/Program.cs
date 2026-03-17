@@ -1,5 +1,5 @@
-﻿using ollama_langflow;
-using OllamaSharp;
+﻿using OllamaSharp;
+using ollama_langflow;
 
 async Task<string> ContextAsync(string question)
 {
