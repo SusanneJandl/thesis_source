@@ -1,58 +1,51 @@
 import http.client
 import json
 
-conn = http.client.HTTPConnection("localhost", 5000)
+conn = http.client.HTTPConnection("127.0.0.1", 5000)
 
 questionsEN = [
     "What unusual feature defines the geography of Velbrek?",
     "What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?",
     "Who or what are the members of the 'Order of the Thirteen-Shelled Hypothesis'?",
     "How did The Meow gain endless life?",
-    "What did Sphodebarb trade to become semi-immortal?",
     "What substance represented a version of death without finality?",
     "How was the conflict between Sphodebarb and The Meow resolved?",
     "Who was Yalp, and why was he important?",
-    "What symbolic event marked the final restoration of balance in Velbrek?",
     "What did Sphodebarb and Nink (the cat) choose after the loop was broken?",
     "What unusual feature defines the geography of Velbrek?",
     "What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?",
     "Who or what are the members of the 'Order of the Thirteen-Shelled Hypothesis'?",
     "How did The Meow gain endless life?",
-    "What did Sphodebarb trade to become semi-immortal?",
     "What substance represented a version of death without finality?",
     "How was the conflict between Sphodebarb and The Meow resolved?",
     "Who was Yalp, and why was he important?",
-    "What symbolic event marked the final restoration of balance in Velbrek?",
-    "What did Sphodebarb and Nink (the cat) choose after the loop was broken?"
+    "What did Sphodebarb and Nink (the cat) choose after the loop was broken?",
+    
 ]
 
 questionsDE = [
-    "Welches ungewöhnliche Merkmal prägt die Geographie von Velbrek?",
+    "Welche ungewöhnliche Eigenschaft definiert die Geografie von Velbrek?",
     "Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?",
-    "Wer oder was sind die Mitglieder des ''Ordens der Dreizehn-Schaligen Hypothese''?",
+    "Wer oder was sind die Mitglieder des 'Ordens der Dreizehn-Schaligen Hypothese'?",
     "Wie erlangte The Meow endloses Leben?",
-    "Was tauschte Sphodebarb, um halb-unsterblich zu werden?",
     "Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?",
     "Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?",
     "Wer war Yalp, und warum war er wichtig?",
-    "Welches symbolische Ereignis markierte die endgültige Wiederherstellung des Gleichgewichts in Velbrek?",
-    "Was wählten Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?",
-    "Welches ungewöhnliche Merkmal prägt die Geographie von Velbrek?",
+    "Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife gebrochen war?",
+    "Welche ungewöhnliche Eigenschaft definiert die Geografie von Velbrek?",
     "Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?",
-    "Wer oder was sind die Mitglieder des ''Ordens der Dreizehn-Schaligen Hypothese''?",
+    "Wer oder was sind die Mitglieder des 'Ordens der Dreizehn-Schaligen Hypothese'?",
     "Wie erlangte The Meow endloses Leben?",
-    "Was tauschte Sphodebarb, um halb-unsterblich zu werden?",
     "Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?",
     "Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?",
     "Wer war Yalp, und warum war er wichtig?",
-    "Welches symbolische Ereignis markierte die endgültige Wiederherstellung des Gleichgewichts in Velbrek?",
-    "Was wählten Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?"
+    "Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife gebrochen war?",
 ]
 
 models = [
-    "llama3.1:8b-instruct-q8_0", 
-    "llama3.1:8b-instruct-q5_0",
-    "llama3.1:8b-instruct-q4_0"
+    "llama3.2:3b-instruct-q8_0", 
+    "llama3.2:3b-instruct-q5_0",
+    "llama3.2:3b-instruct-q4_0"
 ]
 
 headers = {
