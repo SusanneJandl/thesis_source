@@ -23,7 +23,7 @@ namespace ChatbotWPF
                 _samplesCSharpMb.Clear();
                 _samplesFlaskMb.Clear();
                 
-                _timer = new System.Timers.Timer(500);
+                _timer = new System.Timers.Timer(10);
                 _timer.AutoReset = true;
                 _timer.Elapsed += Timer_Elapsed;
                 _timer.Start();
