@@ -1,7 +1,7 @@
 import http.client
 import json
 
-conn = http.client.HTTPConnection("localhost", 5000)
+conn = http.client.HTTPConnection("127.0.0.1", 5000)
 
 questionsEN = [
     "What unusual feature defines the geography of Velbrek?",
@@ -25,20 +25,20 @@ questionsEN = [
 questionsDE = [
     "Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?",
     "Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?",
-    "Wer oder was sind die Mitglieder des ''Ordens der Dreizehn-Schaligen Hypothese''?",
+    "Wer oder was sind die Mitglieder des 'Ordens der Dreizehn-Schaligen Hypothese'?",
     "Wie erlangte The Meow endloses Leben?",
     "Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?",
     "Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?",
     "Wer war Yalp, und warum war er wichtig?",
     "Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?",
-    "Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?",
+    "Welche ungewöhnliche Eigenschaft definiert die Geografie von Velbrek?",
     "Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?",
-    "Wer oder was sind die Mitglieder des ''Ordens der Dreizehn-Schaligen Hypothese''?",
+    "Wer oder was sind die Mitglieder des 'Ordens der Dreizehn-Schaligen Hypothese'?",
     "Wie erlangte The Meow endloses Leben?",
     "Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?",
     "Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?",
     "Wer war Yalp, und warum war er wichtig?",
-    "Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?",
+    "Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?"
 ]
 
 model = "llama3.1:8b-instruct-q4_0"
