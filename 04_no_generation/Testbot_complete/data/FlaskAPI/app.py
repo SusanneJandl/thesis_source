@@ -1,12 +1,8 @@
 # This script utilizes 'flask', which is licensed under the Apache License 2.0.
 
 from flask import Flask, request, jsonify
-from chatbot_trigger import run_chatbot
-from context_provider import retrieve_context
 from context_provider import retrieve_context_qa
-from translation import translate_to_de
 from translation import translate_to_en
-from answer_generator import retrieve_answer
 from datetime import datetime
 
 file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\04_no_generation\\testresults.md" #laptop
