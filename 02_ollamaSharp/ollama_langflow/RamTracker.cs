@@ -6,7 +6,7 @@ using System.Timers;
 
 namespace ollama_langflow
 {
-    internal static class RamTracker
+    public static class RamTracker
     {
         private static readonly List<double> _samplesTotalMb = [];
         private static readonly List<double> _samplesCSharpMb = [];
@@ -28,7 +28,7 @@ namespace ollama_langflow
                 _samplesLangflowMb.Clear();
                 _samplesOllamaMb.Clear();
 
-                _timer = new System.Timers.Timer(500);
+                _timer = new System.Timers.Timer(100);
                 _timer.AutoReset = true;
                 _timer.Elapsed += Timer_Elapsed;
                 _timer.Start();

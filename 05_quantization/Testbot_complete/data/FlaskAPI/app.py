@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify
 from context_provider import retrieve_context
 from answer_generator import retrieve_answer
 from datetime import datetime
+from token_counter import count_tokens
 
 class RamTracker:
     def __init__(self):
@@ -42,7 +43,7 @@ class RamTracker:
             except:
                 pass
 
-            time.sleep(0.5)
+            time.sleep(0.1)
 
     def stop(self):
         self._running = False
@@ -86,12 +87,23 @@ def log_separator(f):
 
 app = Flask(__name__)
 
-file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\05_quantization\\testresults.md" #laptop
+file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop_auto\\05_quantization\\testresults.md" #laptop
 # file = "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\05_quantization\\testresults.md" #PC
 
 @app.route('/')
 def home():
     return "Chatbot API is running"
+
+@app.route('/tokens', methods=['POST'])
+def tokens():
+    data = request.json
+    question = data.get('answer')
+
+    if not question:
+        return jsonify({"status": "error", "message": "Answer is required"}), 400
+
+    token_count = count_tokens(question)
+    return jsonify({"status": "success", "token_count": token_count}), 200
 
 @app.route('/answer', methods=['POST'])
 def get_answer():
@@ -140,8 +152,8 @@ def get_answer():
 
             f.write("\nTIMINGS:\n")
             f.write(f"CONTEXT = {context_time:.2f} s | ")
-            f.write(f"ANSWER  = {answer_time:.2f} s | ")
-            f.write(f"TOTAL   = {total_time:.2f} s\n\n")
+            f.write(f"ANSWER = {answer_time:.2f} s | ")
+            f.write(f"TOTAL = {total_time:.2f} s\n\n")
 
             f.write("RAM USAGE:")
             # RAM logs (like C#)

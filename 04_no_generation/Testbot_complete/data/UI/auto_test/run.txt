@@ -1,0 +1,123 @@
+EN;2;What unusual feature defines the geography of Velbrek?
+EN;2;What is Velbrek?
+EN;2;What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?
+EN;2;What item did Sphodebarb carry instead of a wizard's staff?
+EN;2;Who or what are the members of the "Order of the Thirteen-Shelled Hypothesis"?
+EN;2;How did The Meow gain endless life?
+EN;2;What substance represented a version of death without finality?
+EN;2;How was the conflict between Sphodebarb and The Meow resolved?
+EN;2;Who was Yalp, and why was he important?
+EN;2;Who was Yalp?
+EN;2;Why was Yalp important?
+EN;2;What did Sphodebarb and Nink (the cat) choose after the loop was broken?
+DE;2;Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?
+DE;2;Was ist Velbrek?
+DE;2;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?
+DE;2;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs?
+DE;2;Wer oder was sind die Mitglieder des "Ordens der Dreizehn-Schaligen Hypothese"?
+DE;2;Wie erlangte The Meow endloses Leben?
+DE;2;Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?
+DE;2;Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?
+DE;2;Wer war Yalp, und warum war er wichtig?
+DE;2;Wer war Yalp?
+DE;2;Warum war Yalp wichtig?
+DE;2;Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?
+EN;3;What unusual feature defines the geography of Velbrek?
+EN;3;What is Velbrek?
+EN;3;What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?
+EN;3;What item did Sphodebarb carry instead of a wizard's staff?
+EN;3;Who or what are the members of the "Order of the Thirteen-Shelled Hypothesis"?
+EN;3;How did The Meow gain endless life?
+EN;3;What substance represented a version of death without finality?
+EN;3;How was the conflict between Sphodebarb and The Meow resolved?
+EN;3;Who was Yalp, and why was he important?
+EN;3;Who was Yalp?
+EN;3;Why was Yalp important?
+EN;3;What did Sphodebarb and Nink (the cat) choose after the loop was broken?
+DE;3;Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?
+DE;3;Was ist Velbrek?
+DE;3;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?
+DE;3;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs?
+DE;3;Wer oder was sind die Mitglieder des "Ordens der Dreizehn-Schaligen Hypothese"?
+DE;3;Wie erlangte The Meow endloses Leben?
+DE;3;Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?
+DE;3;Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?
+DE;3;Wer war Yalp, und warum war er wichtig?
+DE;3;Wer war Yalp?
+DE;3;Warum war Yalp wichtig?
+DE;3;Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?
+
+EN;4;What unusual feature defines the geography of Velbrek?
+EN;4;What is Velbrek?
+EN;4;What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?
+EN;4;What item did Sphodebarb carry instead of a wizard's staff?
+EN;4;Who or what are the members of the "Order of the Thirteen-Shelled Hypothesis"?
+EN;4;How did The Meow gain endless life?
+EN;4;What substance represented a version of death without finality?
+EN;4;How was the conflict between Sphodebarb and The Meow resolved?
+EN;4;Who was Yalp, and why was he important?
+EN;4;Who was Yalp?
+EN;4;Why was Yalp important?
+EN;4;What did Sphodebarb and Nink (the cat) choose after the loop was broken?
+DE;4;Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?
+DE;4;Was ist Velbrek?
+DE;4;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?
+DE;4;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs?
+DE;4;Wer oder was sind die Mitglieder des "Ordens der Dreizehn-Schaligen Hypothese"?
+DE;4;Wie erlangte The Meow endloses Leben?
+DE;4;Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?
+DE;4;Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?
+DE;4;Wer war Yalp, und warum war er wichtig?
+DE;4;Wer war Yalp?
+DE;4;Warum war Yalp wichtig?
+DE;4;Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?
+
+EN;5;What unusual feature defines the geography of Velbrek?
+EN;5;What is Velbrek?
+EN;5;What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?
+EN;5;What item did Sphodebarb carry instead of a wizard's staff?
+EN;5;Who or what are the members of the "Order of the Thirteen-Shelled Hypothesis"?
+EN;5;How did The Meow gain endless life?
+EN;5;What substance represented a version of death without finality?
+EN;5;How was the conflict between Sphodebarb and The Meow resolved?
+EN;5;Who was Yalp, and why was he important?
+EN;5;Who was Yalp?
+EN;5;Why was Yalp important?
+EN;5;What did Sphodebarb and Nink (the cat) choose after the loop was broken?
+DE;5;Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?
+DE;5;Was ist Velbrek?
+DE;5;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?
+DE;5;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs?
+DE;5;Wer oder was sind die Mitglieder des "Ordens der Dreizehn-Schaligen Hypothese"?
+DE;5;Wie erlangte The Meow endloses Leben?
+DE;5;Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?
+DE;5;Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?
+DE;5;Wer war Yalp, und warum war er wichtig?
+DE;5;Wer war Yalp?
+DE;5;Warum war Yalp wichtig?
+DE;5;Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?
+
+EN;6;What unusual feature defines the geography of Velbrek?
+EN;6;What is Velbrek?
+EN;6;What item did Sphodebarb carry instead of a wizard's staff, and what was its unique trait?
+EN;6;What item did Sphodebarb carry instead of a wizard's staff?
+EN;6;Who or what are the members of the "Order of the Thirteen-Shelled Hypothesis"?
+EN;6;How did The Meow gain endless life?
+EN;6;What substance represented a version of death without finality?
+EN;6;How was the conflict between Sphodebarb and The Meow resolved?
+EN;6;Who was Yalp, and why was he important?
+EN;6;Who was Yalp?
+EN;6;Why was Yalp important?
+EN;6;What did Sphodebarb and Nink (the cat) choose after the loop was broken?
+DE;6;Welche ungewöhnliche Eigenschaft definiert die Geographie von Velbrek?
+DE;6;Was ist Velbrek?
+DE;6;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs, und was war seine besondere Eigenschaft?
+DE;6;Welchen Gegenstand trug Sphodebarb anstelle eines Zauberstabs?
+DE;6;Wer oder was sind die Mitglieder des "Ordens der Dreizehn-Schaligen Hypothese"?
+DE;6;Wie erlangte The Meow endloses Leben?
+DE;6;Welche Substanz stellte eine Form des Todes ohne Endgültigkeit dar?
+DE;6;Wie wurde der Konflikt zwischen Sphodebarb und The Meow gelöst?
+DE;6;Wer war Yalp, und warum war er wichtig?
+DE;6;Wer war Yalp?
+DE;6;Warum war Yalp wichtig?
+DE;6;Wofür entschieden sich Sphodebarb und Nink (die Katze), nachdem die Schleife durchbrochen war?

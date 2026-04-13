@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Globalization;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace ChatbotWPF
 {
@@ -13,17 +15,53 @@ namespace ChatbotWPF
         {
             InitializeComponent();
             var screenHeight = SystemParameters.WorkArea.Height; // Excludes taskbar
-            var screenWidth = SystemParameters.WorkArea.Width;
+            _ = SystemParameters.WorkArea.Width;
 
-            // Set the position for bottom-left corner
-            this.Left = 0; // Left edge of the screen
-            this.Top = screenHeight - this.Height; // Bottom edge, accounting for window height
-            ChatHistory = new ObservableCollection<string>();
+            Left = 0;
+            Top = screenHeight - Height;
+            ChatHistory = [];
             DataContext = this;
+            rb_english.Checked += OnSwitch;
+            rb_german.Checked += OnSwitch;
+
+            rb_german.IsChecked = true;
             translation.SetCulture(new CultureInfo("de"));
             UpdateStrings();
-            Log.History();
-            Log.Language();
+            this.Loaded += async (_, _) => await RunFromFileIfExists();
+        }
+
+        private async Task RunFromFileIfExists()
+        {
+            if (!File.Exists("run.txt"))
+                return;
+
+            var lines = File.ReadAllLines("run.txt");
+
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
+
+                // Format: en;5;question
+                var parts = line.Split(';');
+
+                if (parts.Length < 3)
+                    continue;
+
+                // Set values WITHOUT UI interaction
+                Consts.LANGUAGE = parts[0].ToUpper();
+                Consts.HISTORY = bool.TryParse(parts[1], out bool his) ? his : false;
+
+                // Optional: update UI visually (not required)
+                rb_english.IsChecked = Consts.LANGUAGE == "EN";
+                rb_german.IsChecked = Consts.LANGUAGE == "DE";
+                
+                // Run your existing pipeline
+                await TestSendMessage(parts[2]);
+
+                // Optional small delay (prevents API overload)
+                await Task.Delay(200);
+            }
         }
         private void UserInput_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
@@ -71,6 +109,19 @@ namespace ChatbotWPF
             if (btn_send != null) btn_send.Content = translation.GetResource("btn_send") ?? "Default Send";
             if (placeholder_textblock != null) placeholder_textblock.Text = translation.GetResource("placeholder_textblock") ?? "Default Placeholder";
             
+        }
+
+        public async Task TestSendMessage(string message)
+        {
+            UserInput.Text = message;
+
+            Log.Language();
+            Log.History();
+            Log.startTotal = DateTime.Now;
+
+            RamTracker.Start();
+
+            await SendMessage();
         }
     }
 }

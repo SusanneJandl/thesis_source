@@ -18,12 +18,13 @@ REM -------------------------------
 echo Starting Ollama...
 start /min cmd /k "ollama serve"
 
+TIMEOUT /T 20
 REM -------------------------------
 REM Step 4: Start Chatbot UI
 REM -------------------------------
 echo Starting Chatbot...
-cd ..\UI\start\
-start "" ChatbotWPF.exe
+cd ../..
+start /min cmd /k "python execution.py"
 
 echo Chatbot started successfully.
 exit

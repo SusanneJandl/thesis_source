@@ -18,7 +18,7 @@ namespace Test_Logger
         private const string LangflowNamePattern = "python";
         private const string OllamaNamePattern = "ollama";
 
-        private const double IntervalMs = 500;
+        private const double IntervalMs = 100;
 
         public static void Start()
         {

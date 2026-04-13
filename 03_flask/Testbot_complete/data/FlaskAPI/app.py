@@ -5,10 +5,11 @@ from context_provider import retrieve_context
 from translation import translate_to_en
 from answer_generator import retrieve_answer
 from datetime import datetime
+from token_counter import count_tokens
 
 app = Flask(__name__)
 
-file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\03_flask\\testresults.md" #laptop
+file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop_auto\\03_flask\\testresults.md" #laptop
 # file = "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\03_flask\\testresults.md" #PC
 
 @app.route('/')
@@ -52,9 +53,9 @@ def get_answer():
             f.write(f"\nENGLISH QUESTION:\n    {question}\n"
                     f"\nCONTEXT:\n    {context}\n"
                     f"\nHISTORY: \n    {history}\n"
-                    f"\nENGLISH ANSWER:\n    {answer_en}\n")
+                    f"\nENGLISH ANSWER:\n    {answer_en + count_tokens(answer_en)}\n")
             if language=="DE":
-                f.write(f"\nGERMAN ANSWER:\n    {answer_de}\n\n")
+                f.write(f"\nGERMAN ANSWER:\n    {answer_de + count_tokens(answer_de)}\n\n")
 
             f.write(f"TIMINGS:\n")
             if language=="DE":

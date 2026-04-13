@@ -1,6 +1,6 @@
 ﻿namespace ollama_langflow
 {
-    internal class Log
+    public class Log
     {
         public static DateTime startTotal;
         public static DateTime startStream;
@@ -8,7 +8,7 @@
         public static DateTime doneContext;
         public static DateTime startGeneration;
 
-        public static string logFilePath = Consts.DEVICE == "laptop"? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\02_ollamaSharp\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC_8\\02_ollamaSharp\\testresults.md";
+        public static string logFilePath = Consts.DEVICE == "laptop"? "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop_auto\\02_ollamaSharp\\testresults.md" : "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC_8\\02_ollamaSharp\\testresults.md";
         public static void History ()
         {
             if (Consts.HISTORY)

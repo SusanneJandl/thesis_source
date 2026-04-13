@@ -23,11 +23,11 @@
             <RadioButton x:Name="rb_english"
                          Content="English" 
                          Margin="0,0,10,0"
-                         Checked="OnSwitch" FontFamily="Arial"/>
+                         FontFamily="Arial"/>
             <RadioButton x:Name="rb_german" 
                          Content="German" 
                          IsChecked="True"
-                         Checked="OnSwitch" FontFamily="Arial"/>
+                         FontFamily="Arial"/>
         </StackPanel>
 
         <!-- Chat History Section -->

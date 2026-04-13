@@ -31,81 +31,16 @@ string newMemory;
 ollama.SelectedModel = "llama3.2:3b";
 Log.History();
 
+var runner = new Conversation();
+
 while (true)
 {
-    if (Consts.HISTORY)
-    { 
-        while (memory.Count > 2)
-        {
-            memory.RemoveAt(0);
-        }
-    }
-    newMemory = "\n";
+    Console.WriteLine("\nGib eine Frage ein:");
+    question = Console.ReadLine();
 
-    // Chat with Ollama
-    var chat = new Chat(ollama);
-    Console.WriteLine("\nGib eine Frage ein: ");
-    var input = Console.ReadLine();
-    Log.StringLog("QUESTION", input ?? "none" + "\n\n");
-    question = input ?? "none";
+    if (string.IsNullOrWhiteSpace(question))
+        continue;
 
-    Log.startTotal = DateTime.Now;
-    RamTracker.Start();
-
-    var context = $"{Context(question)}";
-    Log.StringLog("CONTEXT", context + "\n\n");
-    Log.doneContext = DateTime.Now;
-    string prompt = "";
-    if (Consts.HISTORY)
-    {
-        Log.StringLog("HISTORY", string.Join(" ", memory));
-        prompt = $"Answer the following question based on the provided information:\n" +
-                 $"Question: {question}\n" +
-                 $"Chat History: {memory}\n" +
-                 $"Information: {context}" +
-                 $"Answer German or English depending on the question.\n";
-
-    }
-    else
-    {
-        prompt = $"Answer the following question based on the provided information:\n" +
-                  $"Question: {question}\n" +
-                  $"Information: {context}" +
-                  $"Answer German or English depending on the question.\n";
-    }
-    newMemory = $"User: {question} \n Assistant: ";
-    string answer = "";
-    bool isFirst = true;
-    try
-    {
-        await foreach (var answerToken in chat.SendAsync(prompt))
-        {
-            if (isFirst)
-            {
-                Log.startStream = DateTime.Now;
-                isFirst = false;
-            }
-            Console.Write(answerToken);
-            newMemory += answerToken;
-            answer += answerToken;
-        }
-        if (Consts.HISTORY)
-        {
-            memory.Add(newMemory);
-        }
-        Log.StringLog("ANSWER", answer + "\n\n");
-        Log.doneTotal = DateTime.Now;
-        Log.StringLog("TIMINGS", "");
-        Log.TimeLog(Log.startTotal, Log.doneContext, "CONTEXT");
-        Log.TimeLog(Log.doneContext, Log.startStream, "STREAM START");
-        Log.TimeLog(Log.doneContext, Log.doneTotal, "(GENERATION)");
-        Log.TimeLog(Log.startTotal, Log.doneTotal, "TOTAL");
-        
-        RamTracker.StopAndLog("RAM USAGE");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error in chat response: {ex.Message}");
-        newMemory += "Error: Unable to retrieve response.\n";
-    }
+    await runner.RunQuestion(question);
 }
+

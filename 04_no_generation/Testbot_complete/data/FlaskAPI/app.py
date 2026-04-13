@@ -5,7 +5,7 @@ from context_provider import retrieve_context_qa
 from translation import translate_to_en
 from datetime import datetime
 
-file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop\\04_no_generation\\testresults.md" #laptop
+file = "C:\\Users\\susan\\Documents\\bachelor-thesis_data\\tests\\laptop_auto\\04_no_generation\\testresults.md" #laptop
 # file = "C:\\Users\\Utente\\Documents\\repos\\bachelor-thesis_data\\tests\\PC\\04_no_generation\\testresults.md" #PC
 
 app = Flask(__name__)
@@ -55,7 +55,8 @@ def get_answer_qa():
             f.write(f"TIMINGS:\n")
             if language=="DE":
                 f.write(f"TO EN = {de_en_time:.2f} s | ")
-            f.write(f"ANSWER = {answer_time:.2f} s")
+            f.write(f"ANSWER = {answer_time:.2f} s"
+                    f"\n================================================================\n")
         
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:

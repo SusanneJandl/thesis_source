@@ -16,7 +16,7 @@ REM -------------------------------
 REM Step 4: Start Chatbot UI
 REM -------------------------------
 echo Starting Chatbot...
-cd ..\UI\
+cd ..\UI\start\
 start "" ChatbotWPF.exe
 
 echo Chatbot started successfully.

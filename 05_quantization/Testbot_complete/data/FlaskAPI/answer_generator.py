@@ -1,5 +1,6 @@
 from ollama import generate
 from datetime import datetime
+from token_counter import count_tokens
 
 def retrieve_answer(context: str, question: str, language: str, model: str) -> str:
     prompt = ""
@@ -9,18 +10,9 @@ def retrieve_answer(context: str, question: str, language: str, model: str) -> s
     else:
         prompt = f"Answer the question: '{question}'.\n Use the following information for your answer: '{context}'. Answer in English."
 
-    # model = "smollm2:1.7b"
-    # model = "llama3.2:1b"
-    # model = "llama3.2:3b-instruct-q8_0"
-    # model = "llama3.2:3b-instruct-q5_0"
-    # model = "llama3.2:3b-instruct-q4_0"
-    # model = "llama3.2:3b-instruct-q3_K_S"
-    # model = "llama3.2:3b-instruct-q4_K_S"
-    # model = "llama3.2:3b-instruct-q5_K_S"
-    # model = "llama3.2:3b"
-
     response = generate(model, prompt)
     answer = response['response']
     answer_time = (datetime.now() - starttime).total_seconds() 
+    answer += count_tokens(answer)
      
     return answer, answer_time

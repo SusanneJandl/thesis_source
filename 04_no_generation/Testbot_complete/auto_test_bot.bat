@@ -12,11 +12,14 @@ echo Starting FlaskAPI with Waitress...
 cd .\data\FlaskAPI\
 start /min cmd /k "waitress-serve --host=0.0.0.0 --port=5000 app:app"
 
+TIMEOUT /T 20
+
 REM -------------------------------
-REM Step 3: Start Ollama (MINIMIZED)
+REM Step 4: Start Chatbot UI
 REM -------------------------------
-echo Starting Ollama...
-start /min cmd /k "ollama serve"
+echo Starting Chatbot...
+cd ..\UI\auto_test\
+start "" ChatbotWPF.exe
 
 echo Chatbot started successfully.
 exit
