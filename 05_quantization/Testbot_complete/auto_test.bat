@@ -18,7 +18,7 @@ REM -------------------------------
 echo Starting Ollama...
 start /min cmd /k "ollama serve"
 
-TIMEOUT /T 20
+TIMEOUT /T 40
 REM -------------------------------
 REM Step 4: Start Chatbot UI
 REM -------------------------------

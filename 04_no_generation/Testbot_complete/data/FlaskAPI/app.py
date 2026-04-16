@@ -55,8 +55,7 @@ def get_answer_qa():
             f.write(f"TIMINGS:\n")
             if language=="DE":
                 f.write(f"TO EN = {de_en_time:.2f} s | ")
-            f.write(f"ANSWER = {answer_time:.2f} s"
-                    f"\n================================================================\n")
+            f.write(f"ANSWER = {answer_time:.2f} s")
         
         return jsonify({"status": "success", "answer": answer}), 200
     except Exception as e:
